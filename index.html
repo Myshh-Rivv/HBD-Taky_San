@@ -41,18 +41,12 @@ button{
 #universeCanvas{
     position:fixed;
     inset:0;
-
     width:100%;
     height:100%;
-
     z-index:1;
-
     opacity:0;
-
     pointer-events:none;
-
     transition:opacity:1.2s ease;
-
     background:#000;
 }
 
@@ -64,7 +58,6 @@ button{
 .screen{
     position:fixed;
     inset:0;
-
     z-index:10;
 
     display:flex;
@@ -551,7 +544,6 @@ button{
 
 #letterScreen.show{
     opacity:1;
-
     pointer-events:auto;
 }
 
@@ -572,6 +564,23 @@ button{
         letterIn 1.4s
         cubic-bezier(.16,1,.3,1)
         forwards;
+}
+
+@keyframes letterIn{
+
+    0%{
+        opacity:0;
+
+        transform:
+            translateY(50px);
+    }
+
+    100%{
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
 }
 
 .letter-heart{
@@ -698,16 +707,11 @@ button{
         blink 2s infinite;
 }
 
-
-/* =====================================================
-   SENSOR FINAL
-===================================================== */
-
 #finalTrigger{
 
     width:100%;
 
-    height:5px;
+    height:10px;
 
     margin-top:20px;
 
@@ -716,7 +720,7 @@ button{
 
 
 /* =====================================================
-   FINAL TE AMO
+   PANTALLA FINAL
 ===================================================== */
 
 #finalScreen{
@@ -771,6 +775,8 @@ button{
         0 0 30px #ff477e,
         0 0 70px #ff0055,
         0 0 130px #ff0055;
+
+    position:absolute;
 }
 
 #finalScreen.show #loveText{
@@ -810,7 +816,140 @@ button{
 
 
 /* =====================================================
-   EXPLOSIÓN DEL REGALO
+   FECHA FINAL
+===================================================== */
+
+#dateText{
+
+    position:absolute;
+
+    top:42%;
+
+    left:50%;
+
+    transform:
+        translate(-50%,30px)
+        scale(.7);
+
+    width:100%;
+
+    text-align:center;
+
+    font-family:'Cinzel',serif;
+
+    font-size:
+        clamp(2.5rem,10vw,6rem);
+
+    font-weight:700;
+
+    letter-spacing:.08em;
+
+    color:#fff;
+
+    opacity:0;
+
+    text-shadow:
+        0 0 10px #fff,
+        0 0 30px #ffd6e5,
+        0 0 60px #ff4f91,
+        0 0 100px #ff174f;
+
+    transition:
+        opacity 1.3s ease,
+        transform 1.3s cubic-bezier(.16,1,.3,1);
+}
+
+#dateText.show{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,0)
+        scale(1);
+}
+
+
+/* =====================================================
+   MENSAJE FINAL
+===================================================== */
+
+#finalMessage{
+
+    position:absolute;
+
+    top:53%;
+
+    left:50%;
+
+    transform:
+        translate(-50%,40px)
+        scale(.8);
+
+    width:100%;
+
+    text-align:center;
+
+    font-family:'Cinzel',serif;
+
+    font-size:
+        clamp(1.8rem,7vw,4.5rem);
+
+    font-weight:700;
+
+    color:#fff;
+
+    opacity:0;
+
+    text-shadow:
+        0 0 10px #fff,
+        0 0 25px #ffb5d0,
+        0 0 50px #ff3d7f,
+        0 0 90px #ff0055;
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s cubic-bezier(.16,1,.3,1);
+}
+
+#finalMessage.show{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,0)
+        scale(1);
+}
+
+#finalMessage::after{
+
+    content:"❤️";
+
+    display:block;
+
+    margin-top:15px;
+
+    font-size:.65em;
+
+    animation:
+        finalHeart 1.5s
+        ease-in-out
+        infinite;
+}
+
+@keyframes finalHeart{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.15);
+    }
+}
+
+
+/* =====================================================
+   EXPLOSIÓN
 ===================================================== */
 
 .explosionParticle{
@@ -892,6 +1031,16 @@ button{
     #loveText{
         font-size:21vw;
     }
+
+    #dateText{
+        top:42%;
+        font-size:11vw;
+    }
+
+    #finalMessage{
+        top:54%;
+        font-size:7vw;
+    }
 }
 
 </style>
@@ -902,14 +1051,14 @@ button{
 
 
 <!-- =====================================================
-     CANVAS
+     UNIVERSO
 ===================================================== -->
 
 <canvas id="universeCanvas"></canvas>
 
 
 <!-- =====================================================
-     PANTALLA REGALO
+     REGALO
 ===================================================== -->
 
 <section
@@ -1069,7 +1218,6 @@ button{
     </article>
 
 
-    <!-- SENSOR INVISIBLE -->
     <div id="finalTrigger"></div>
 
 </section>
@@ -1083,6 +1231,14 @@ button{
 
     <div id="loveText">
         TE AMO
+    </div>
+
+    <div id="dateText">
+        25 DE AGOSTO
+    </div>
+
+    <div id="finalMessage">
+        FELIZ 25/08, MI AMOR
     </div>
 
 </div>
@@ -1147,6 +1303,16 @@ const loveText =
         "loveText"
     );
 
+const dateText =
+    document.getElementById(
+        "dateText"
+    );
+
+const finalMessage =
+    document.getElementById(
+        "finalMessage"
+    );
+
 const finalTrigger =
     document.getElementById(
         "finalTrigger"
@@ -1169,8 +1335,6 @@ let heartFormed=false;
 let heartClicked=false;
 
 let finalStarted=false;
-
-let galaxyStarted=false;
 
 let mobile=
     window.innerWidth<600;
@@ -1450,16 +1614,6 @@ function universeLoop(){
         const s of stars
     ){
 
-        if(s.galaxy){
-
-            drawGalaxyParticle(
-                s,
-                time
-            );
-
-            continue;
-        }
-
         if(s.heart){
 
             drawHeartParticle(
@@ -1546,7 +1700,7 @@ function universeLoop(){
 
 
 /* =====================================================
-   CORAZÓN
+   CREAR CORAZÓN
 ===================================================== */
 
 function createHeart(){
@@ -1714,7 +1868,7 @@ function moveHeartParticles(){
 
 
 /* =====================================================
-   PARTÍCULA CORAZÓN
+   PARTÍCULAS DEL CORAZÓN
 ===================================================== */
 
 function drawHeartParticle(
@@ -1821,7 +1975,7 @@ function showLetter(){
 
 
 /* =====================================================
-   EXPLOSIÓN
+   EXPLOSIÓN DEL REGALO
 ===================================================== */
 
 function explode(element){
@@ -1931,7 +2085,7 @@ function explode(element){
 
 
 /* =====================================================
-   DETECTAR FINAL
+   DETECTAR FINAL DE CARTA
 ===================================================== */
 
 const finalObserver=
@@ -1952,11 +2106,9 @@ const finalObserver=
 
         {
             root:letterScreen,
-
             threshold:.01
         }
     );
-
 
 finalObserver.observe(
     finalTrigger
@@ -1997,6 +2149,10 @@ function startFinal(){
                 "show"
             );
 
+            /*
+               TE AMO aparece primero.
+            */
+
             setTimeout(
                 () => {
 
@@ -2013,82 +2169,114 @@ function startFinal(){
 
 
 /* =====================================================
-   DESTRUIR TE AMO
+   TE AMO — DESINTEGRACIÓN
 ===================================================== */
 
 function destroyLove(){
 
-    const rect=
+    const rect =
         loveText.getBoundingClientRect();
 
-    loveText.style.opacity="0";
+    loveText.style.opacity =
+        "0";
 
-    canvas.style.zIndex="250";
+    canvas.style.zIndex =
+        "250";
 
-    canvas.style.opacity="1";
+    canvas.style.opacity =
+        "1";
 
-    canvas.style.pointerEvents=
+    canvas.style.pointerEvents =
         "none";
 
-    const particles=[];
+    const particles = [];
 
-    const amount=
+    const amount =
         mobile
         ? 700
         : 1200;
 
+
+    /*
+       Las partículas nacen
+       desde el TE AMO.
+    */
+
     for(
-        let i=0;
-        i<amount;
+        let i = 0;
+        i < amount;
         i++
     ){
 
+        const x =
+            rect.left +
+            Math.random() *
+            rect.width;
+
+        const y =
+            rect.top +
+            Math.random() *
+            rect.height;
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+        /*
+           EXPANSIÓN GRANDE.
+        */
+
+        const force =
+            2 +
+            Math.random() *
+            9;
+
         particles.push({
 
-            x:
-                rect.left+
-                Math.random()
-                *rect.width,
+            x:x,
 
-            y:
-                rect.top+
-                Math.random()
-                *rect.height,
+            y:y,
 
             vx:
-                (Math.random()-.5)
-                *6,
+                Math.cos(angle)
+                * force,
 
             vy:
-                (Math.random()-.5)
-                *6,
+                Math.sin(angle)
+                * force,
 
-            gravity:
-                .012+
-                Math.random()*.025,
+            size:
+                Math.random() *
+                3.5
+                + .6,
 
             life:1,
 
-            size:
-                Math.random()*3+1,
+            decay:
+                .0018 +
+                Math.random() *
+                .003,
 
             color:
-                Math.random()>.65
-                ? "#ff4f91"
-                : "#ffffff"
+                randomLoveColor()
         });
     }
 
-    let start=
+
+    let startTime =
         performance.now();
 
-    function particleAnimation(now){
 
-        const elapsed=
-            now-start;
+    function expandParticles(now){
 
-        ctx.fillStyle=
-            "#000";
+        const elapsed =
+            now -
+            startTime;
+
+
+        ctx.fillStyle =
+            "rgba(0,0,0,.20)";
 
         ctx.fillRect(
             0,
@@ -2097,32 +2285,43 @@ function destroyLove(){
             H
         );
 
+
         for(
             const p of particles
         ){
 
-            p.x+=p.vx;
+            p.x += p.vx;
 
-            p.y+=p.vy;
+            p.y += p.vy;
 
-            p.vy+=p.gravity;
+            p.vx *= .996;
 
-            p.vx*=.997;
+            p.vy *= .996;
 
-            p.life-=.0035;
+            p.vy += .006;
 
-            ctx.globalAlpha=
+            p.life -=
+                p.decay;
+
+            if(
+                p.life <= 0
+            )
+                continue;
+
+
+            ctx.globalAlpha =
                 Math.max(
                     p.life,
                     0
                 );
 
-            ctx.fillStyle=
+            ctx.fillStyle =
                 p.color;
 
-            ctx.shadowBlur=15;
+            ctx.shadowBlur =
+                12;
 
-            ctx.shadowColor=
+            ctx.shadowColor =
                 p.color;
 
             ctx.beginPath();
@@ -2138,439 +2337,176 @@ function destroyLove(){
             ctx.fill();
         }
 
+
         ctx.globalAlpha=1;
 
         ctx.shadowBlur=0;
 
+
+        /*
+           Las partículas se expanden
+           durante 5 segundos.
+        */
+
         if(
-            elapsed<3000
+            elapsed < 5000
         ){
 
             requestAnimationFrame(
-                particleAnimation
+                expandParticles
             );
 
         }else{
 
-            createGalaxy();
+            fadeParticles();
+
         }
     }
 
+
     requestAnimationFrame(
-        particleAnimation
+        expandParticles
     );
 }
 
 
 /* =====================================================
-   GALAXIA
+   COLORES
 ===================================================== */
 
-function createGalaxy(){
+function randomLoveColor(){
 
-    galaxyStarted=true;
+    const colors = [
 
-    stars=[];
+        "#ffffff",
 
-    const amount=
-        mobile
-        ? 700
-        : 1400;
+        "#fff5fa",
 
-    for(
-        let i=0;
-        i<amount;
-        i++
-    ){
+        "#ffd6e7",
 
-        const angle=
+        "#ff9fc3",
+
+        "#ff4f91",
+
+        "#ff1768",
+
+        "#ff77aa",
+
+        "#e9b7ff"
+
+    ];
+
+    return colors[
+        Math.floor(
             Math.random()
-            *Math.PI*2;
-
-        const radius=
-            Math.pow(
-                Math.random(),
-                .62
-            )
-            *
-            Math.min(W,H)
-            *.72;
-
-        stars.push({
-
-            galaxy:true,
-
-            angle:
-                angle+
-                radius*.006,
-
-            radius:radius,
-
-            z:
-                (Math.random()-.5)
-                *350,
-
-            size:
-                Math.random()*2.5+.5,
-
-            speed:
-                .0005+
-                Math.random()*.0014,
-
-            color:
-                galaxyColor(),
-
-            twinkle:
-                Math.random()
-                *Math.PI*2
-        });
-    }
-
-
-    /* Núcleo */
-
-    for(
-        let i=0;
-        i<250;
-        i++
-    ){
-
-        stars.push({
-
-            galaxy:true,
-
-            angle:
-                Math.random()
-                *Math.PI*2,
-
-            radius:
-                Math.random()
-                *
-                Math.min(W,H)
-                *.17,
-
-            z:
-                (Math.random()-.5)
-                *120,
-
-            size:
-                Math.random()*4+1,
-
-            speed:
-                .001+
-                Math.random()*.002,
-
-            color:
-                "#ffffff",
-
-            twinkle:
-                Math.random()
-                *Math.PI*2
-        });
-    }
-
-    requestAnimationFrame(
-        galaxyLoop
-    );
+            * colors.length
+        )
+    ];
 }
 
 
 /* =====================================================
-   COLORES GALAXIA
+   DESVANECIMIENTO DE PARTÍCULAS
 ===================================================== */
 
-function galaxyColor(){
+function fadeParticles(){
 
-    const r=
-        Math.random();
-
-    if(r<.20)
-        return "#ffffff";
-
-    if(r<.40)
-        return "#8de8ff";
-
-    if(r<.58)
-        return "#4da9ff";
-
-    if(r<.78)
-        return "#d9a7ff";
-
-    return "#ff79c6";
-}
+    let opacity=1;
 
 
-/* =====================================================
-   PARTÍCULA GALAXIA
-===================================================== */
+    function fade(){
 
-function drawGalaxyParticle(
-    s,
-    time
-){
-
-    s.angle+=s.speed;
-
-    const perspective=
-        1+
-        s.z/900;
-
-    const x=
-        Math.cos(s.angle)
-        *
-        s.radius
-        *
-        perspective;
-
-    const y=
-        Math.sin(s.angle)
-        *
-        s.radius
-        *
-        .40
-        *
-        perspective;
-
-    const rotation=
-        time*.025;
-
-    const rx=
-        x*Math.cos(rotation)
-        -
-        y*Math.sin(rotation);
-
-    const ry=
-        x*Math.sin(rotation)
-        +
-        y*Math.cos(rotation);
-
-    const px=
-        W/2+
-        rx;
-
-    const py=
-        H/2+
-        ry;
-
-    if(
-        px<-50 ||
-        px>W+50 ||
-        py<-50 ||
-        py>H+50
-    )
-        return;
-
-    const twinkle=
-        Math.sin(
-            time*2+
-            s.twinkle
-        )*.5+.5;
-
-    const alpha=
-        .35+
-        twinkle*.65;
+        opacity-=.015;
 
 
-    /* Halo */
+        ctx.fillStyle =
+            `rgba(0,0,0,${opacity})`;
 
-    if(s.size>1.5){
+        ctx.fillRect(
+            0,
+            0,
+            W,
+            H
+        );
 
-        const glow=
-            ctx.createRadialGradient(
-                px,
-                py,
-                0,
-                px,
-                py,
-                s.size*7
+
+        if(
+            opacity>0
+        ){
+
+            requestAnimationFrame(
+                fade
             );
 
-        glow.addColorStop(
-            0,
-            s.color
-        );
+        }else{
 
-        glow.addColorStop(
-            .25,
-            s.color
-        );
+            ctx.clearRect(
+                0,
+                0,
+                W,
+                H
+            );
 
-        glow.addColorStop(
-            1,
-            "transparent"
-        );
+            canvas.style.opacity=
+                "0";
 
-        ctx.globalAlpha=
-            alpha*.45;
 
-        ctx.fillStyle=
-            glow;
+            /*
+               ==========================================
+               AQUÍ COMIENZA EL NUEVO FINAL
+               ==========================================
+            */
 
-        ctx.beginPath();
+            showDate();
 
-        ctx.arc(
-            px,
-            py,
-            s.size*7,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fill();
+        }
     }
 
 
-    ctx.globalAlpha=
-        alpha;
-
-    ctx.fillStyle=
-        s.color;
-
-    ctx.shadowBlur=
-        s.size*4;
-
-    ctx.shadowColor=
-        s.color;
-
-    ctx.beginPath();
-
-    ctx.arc(
-        px,
-        py,
-        s.size,
-        0,
-        Math.PI*2
+    requestAnimationFrame(
+        fade
     );
-
-    ctx.fill();
-
-    ctx.shadowBlur=0;
-
-    ctx.globalAlpha=1;
 }
 
 
 /* =====================================================
-   LOOP GALAXIA
+   25 DE AGOSTO
 ===================================================== */
 
-function galaxyLoop(){
+function showDate(){
 
-    if(!galaxyStarted)
-        return;
-
-    requestAnimationFrame(
-        galaxyLoop
-    );
-
-    ctx.fillStyle="#000";
-
-    ctx.fillRect(
-        0,
-        0,
-        W,
-        H
+    dateText.classList.add(
+        "show"
     );
 
 
-    /* Halo */
+    /*
+       Después de mostrar
+       25 DE AGOSTO,
+       aparece el mensaje final.
+    */
 
-    const halo=
-        ctx.createRadialGradient(
-            W/2,
-            H/2,
-            0,
-            W/2,
-            H/2,
-            Math.min(W,H)*.8
-        );
+    setTimeout(
+        () => {
 
-    halo.addColorStop(
-        0,
-        "rgba(160,70,255,.20)"
+            dateText.classList.remove(
+                "show"
+            );
+
+            setTimeout(
+                () => {
+
+                    finalMessage.classList.add(
+                        "show"
+                    );
+
+                },
+                700
+            );
+
+        },
+        2500
     );
-
-    halo.addColorStop(
-        .25,
-        "rgba(80,120,255,.08)"
-    );
-
-    halo.addColorStop(
-        .5,
-        "rgba(255,40,160,.035)"
-    );
-
-    halo.addColorStop(
-        1,
-        "transparent"
-    );
-
-    ctx.fillStyle=
-        halo;
-
-    ctx.fillRect(
-        0,
-        0,
-        W,
-        H
-    );
-
-
-    /* Núcleo */
-
-    const core=
-        ctx.createRadialGradient(
-            W/2,
-            H/2,
-            0,
-            W/2,
-            H/2,
-            Math.min(W,H)*.25
-        );
-
-    core.addColorStop(
-        0,
-        "rgba(255,255,255,.95)"
-    );
-
-    core.addColorStop(
-        .08,
-        "rgba(255,230,255,.8)"
-    );
-
-    core.addColorStop(
-        .25,
-        "rgba(180,130,255,.25)"
-    );
-
-    core.addColorStop(
-        1,
-        "transparent"
-    );
-
-    ctx.fillStyle=
-        core;
-
-    ctx.fillRect(
-        0,
-        0,
-        W,
-        H
-    );
-
-
-    const time=
-        Date.now()*.001;
-
-    for(
-        const s of stars
-    ){
-
-        drawGalaxyParticle(
-            s,
-            time
-        );
-    }
 }
 
 </script>
