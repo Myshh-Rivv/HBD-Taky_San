@@ -1,277 +1,1934 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para mi amor ❤️✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 100%; height: 100%; overflow: hidden; background: #000; color: white; font-family: 'Poppins', sans-serif; position: relative; }
-button { font-family: inherit; }
-#universeCanvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; opacity: 0; pointer-events: none; transition: opacity 1s ease; }
-.screen { position: fixed; inset: 0; z-index: 10; display: flex; justify-content: center; align-items: center; padding: 20px; transition: opacity .6s ease, transform .6s ease; flex-direction: column; text-align: center; }
-.hidden { opacity: 0 !important; pointer-events: none !important; transform: scale(.95); }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-/* PASO 1 — REGALO */
-#giftScreen { radial-gradient(circle at center, rgba(255,20,100,.1), transparent 60%); }
-.gift-title { font-family: 'Cinzel', serif; font-size: clamp(2.2rem,8vw,4.5rem); font-weight: 700; color: #fff; margin-bottom: 5px; text-shadow: 0 0 10px #fff, 0 0 20px #ff007f, 0 0 40px #ff007f; }
-.gift-subtitle { color: rgba(255,255,255,.8); font-size: clamp(1rem,3.5vw,1.25rem); margin-bottom: 25px; }
-.gift { border: none; background: transparent; font-size: clamp(9rem,35vw,15rem); cursor: pointer; user-select: none; animation: giftFloat 3s ease-in-out infinite, giftGlow 2s ease-in-out infinite alternate; transition: transform .3s ease; }
-.gift:hover { transform: scale(1.1); }
-.gift:active { transform: scale(.9); }
-@keyframes giftFloat { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
-@keyframes giftGlow { from { filter: drop-shadow(0 0 15px rgba(255,50,130,.7)); } to { filter: drop-shadow(0 0 35px #ff007f); } }
-.gift-hint { margin-top: 15px; color: rgba(255,255,255,.6); font-size: 1rem; animation: blink 2s ease-in-out infinite; }
-@keyframes blink { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
 
-/* PASO 2 — FELIZ CUMPLEAÑOS RÁPIDO */
-#birthdayScreen { radial-gradient(circle at center, rgba(255,255,255,.05), transparent 60%); pointer-events: none; }
-.led-wrapper { position: absolute; top: 40%; transform: translateY(-50%); width: 100%; display: flex; justify-content: center; align-items: center; }
-.led-text { font-family: 'Cinzel', serif; font-size: clamp(2.5rem,10vw,8rem); font-weight: 700; color: #fff; text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 50px #fff; opacity: 0; transform: scale(0.5); }
-.led-text.pop { animation: birthdayPop 0.8s ease-out forwards, glowPulse 1.5s infinite; }
-@keyframes birthdayPop { 0% { opacity: 0; transform: scale(0.5) translateY(30px); } 60% { transform: scale(1.1) translateY(-5px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-@keyframes glowPulse { 0%,100% { text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 50px #fff; } 50% { text-shadow: 0 0 15px #fff, 0 0 45px #fff, 0 0 75px #fff; } }
-.birthday-heart { position: absolute; top: 52%; font-size: clamp(6rem,25vw,12rem); opacity: 0; transform: scale(.2); filter: drop-shadow(0 0 20px #ff174f); }
-.birthday-heart.show { animation: heartAppear 1.2s cubic-bezier(.17,.89,.32,1.4) forwards, heartPulse 1.4s ease-in-out infinite; }
-@keyframes heartAppear { 0% { opacity: 0; transform: scale(.2); } 60% { opacity: 1; transform: scale(1.15); } 100% { opacity: 1; transform: scale(1); } }
-@keyframes heartPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-.touch-message { position: absolute; bottom: 12%; opacity: 0; transform: translateY(20px); font-size: clamp(1.2rem,5vw,1.7rem); font-weight: 800; color: #fff; text-shadow: 0 0 10px #fff, 0 0 25px #4ddfff; pointer-events: auto; cursor: pointer; padding: 15px 35px; border-radius: 50px; background: rgba(0, 191, 255, 0.4); backdrop-filter: blur(5px); transition: all .3s; animation: touchAppear 1s ease forwards 3s, touchPulse 1.5s infinite; }
-.touch-message:hover { transform: scale(1.1) translateY(-2px); background: rgba(0, 191, 255, 0.6); }
-@keyframes touchAppear { to { opacity: 1; transform: translateY(0); } }
-@keyframes touchPulse { 0%,100% { box-shadow: 0 0 10px rgba(0,191,255,0.4); } 50% { box-shadow: 0 0 25px rgba(0,191,255,0.7); } }
+/* =========================
+   CANVAS DEL UNIVERSO
+========================= */
 
-/* CARTA */
-#letterScreen { opacity: 0; pointer-events: none; overflow-y: auto; padding: 30px 18px; align-items: center; background: radial-gradient(circle at center, rgba(12,20,60,.7), rgba(0,0,0,.95)); backdrop-filter: blur(8px); }
-#letterScreen.show { opacity: 1; pointer-events: auto; }
-.letter { width: min(750px,96vw); padding: clamp(30px,6vw,60px); border-radius: 30px; background: rgba(10, 15, 40, 0.9); border: 1px solid rgba(255,255,255,.2); box-shadow: 0 0 50px rgba(0,174,255,.2); animation: letterAppear 1.2s cubic-bezier(.16,1,.3,1) forwards; }
-.letter-heart { font-size: 5rem; filter: drop-shadow(0 0 20px #ff305f); animation: letterHeartPulse 2s ease-in-out infinite; margin-bottom: 10px; }
-.letter h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem,7.5vw,3.6rem); margin: 20px 0; color: #fff; text-shadow: 0 0 15px rgba(100,190,255,.9); font-weight: 700; }
-.letter p { font-size: clamp(1.05rem,3.2vw,1.25rem); line-height: 1.8; color: #f5f5f5; margin-bottom: 20px; text-align: left; }
-.quote { margin-top: 30px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,.2); color: #8de8ff; font-family: 'Cinzel', serif; font-size: clamp(1.1rem,4vw,1.35rem); text-shadow: 0 0 15px rgba(70,210,255,.7); font-weight: 700; }
-@keyframes letterAppear { 0% { opacity: 0; transform: translateY(40px) scale(.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes letterHeartPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-.particle { position: fixed; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 100; animation: particleExplosion 1.8s ease-out forwards; }
-@keyframes particleExplosion { from { transform: translate(0,0) scale(1); opacity: 1; } to { transform: translate(var(--x),var(--y)) scale(0); opacity: 0; } }
-@media (max-width:600px) { .gift-title { margin-bottom: 0px; } .birthday-heart { top: 51%; } }
+#universeCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    background: #000;
+    transition: opacity 1.5s ease;
+}
+
+/* Brillo ambiental */
+
+#spaceGlow {
+    position: fixed;
+    inset: -30%;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2s ease;
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(80, 120, 255, .08),
+            rgba(0, 0, 0, 0) 45%
+        );
+    animation: spaceRotate 20s linear infinite;
+}
+
+@keyframes spaceRotate {
+    from {
+        transform: rotate(0deg) scale(1);
+    }
+
+    to {
+        transform: rotate(360deg) scale(1.15);
+    }
+}
+
+/* =========================
+   PANTALLAS
+========================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    flex-direction: column;
+    text-align: center;
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: scale(.96);
+}
+
+/* =========================
+   REGALO
+========================= */
+
+#giftScreen {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 20, 100, .10),
+            transparent 60%
+        );
+}
+
+.gift-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 8vw, 4.5rem);
+    font-weight: 700;
+    color: #fff;
+
+    margin-bottom: 5px;
+
+    text-shadow:
+        0 0 10px #fff,
+        0 0 20px #ff007f,
+        0 0 40px #ff007f;
+}
+
+.gift-subtitle {
+    color: rgba(255,255,255,.8);
+    font-size: clamp(1rem,3.5vw,1.25rem);
+    margin-bottom: 25px;
+}
+
+.gift {
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-size: clamp(9rem,35vw,15rem);
+
+    cursor: pointer;
+    user-select: none;
+
+    animation:
+        giftFloat 3s ease-in-out infinite,
+        giftGlow 2s ease-in-out infinite alternate;
+
+    transition: transform .3s ease;
+}
+
+.gift:hover {
+    transform: scale(1.1);
+}
+
+.gift:active {
+    transform: scale(.9);
+}
+
+@keyframes giftFloat {
+
+    0%,100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(2deg);
+    }
+}
+
+@keyframes giftGlow {
+
+    from {
+        filter:
+            drop-shadow(0 0 15px rgba(255,50,130,.7));
+    }
+
+    to {
+        filter:
+            drop-shadow(0 0 35px #ff007f);
+    }
+}
+
+.gift-hint {
+    margin-top: 15px;
+
+    color: rgba(255,255,255,.6);
+
+    font-size: 1rem;
+
+    animation:
+        blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+
+    0%,100% {
+        opacity: .5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* =========================
+   FELIZ CUMPLEAÑOS
+========================= */
+
+#birthdayScreen {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,255,255,.04),
+            transparent 65%
+        );
+
+    pointer-events: none;
+}
+
+.led-wrapper {
+    position: absolute;
+
+    top: 38%;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.led-text {
+    font-family: 'Cinzel', serif;
+
+    font-size:
+        clamp(2.5rem,10vw,8rem);
+
+    font-weight: 700;
+
+    color: #fff;
+
+    text-shadow:
+        0 0 10px #fff,
+        0 0 30px #fff,
+        0 0 60px rgba(255,255,255,.8);
+
+    opacity: 0;
+
+    transform: scale(.5);
+}
+
+.led-text.pop {
+    animation:
+        birthdayPop .9s ease-out forwards,
+        glowPulse 2s infinite;
+}
+
+@keyframes birthdayPop {
+
+    0% {
+        opacity: 0;
+        transform:
+            scale(.5)
+            translateY(30px);
+    }
+
+    60% {
+        transform:
+            scale(1.1)
+            translateY(-5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+@keyframes glowPulse {
+
+    0%,100% {
+        text-shadow:
+            0 0 10px #fff,
+            0 0 30px #fff,
+            0 0 50px #fff;
+    }
+
+    50% {
+        text-shadow:
+            0 0 15px #fff,
+            0 0 45px #fff,
+            0 0 80px #fff;
+    }
+}
+
+.birthday-heart {
+    position: absolute;
+
+    top: 50%;
+
+    font-size:
+        clamp(6rem,25vw,12rem);
+
+    opacity: 0;
+
+    transform: scale(.2);
+
+    filter:
+        drop-shadow(0 0 20px #ff174f);
+}
+
+.birthday-heart.show {
+    animation:
+        heartAppear 1.2s cubic-bezier(.17,.89,.32,1.4) forwards,
+        heartPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes heartAppear {
+
+    0% {
+        opacity: 0;
+        transform: scale(.2);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes heartPulse {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+/* =========================
+   BOTÓN TOCA AQUÍ
+========================= */
+
+.touch-message {
+    position: absolute;
+
+    bottom: 10%;
+
+    pointer-events: auto;
+
+    cursor: pointer;
+
+    padding:
+        15px 42px;
+
+    border-radius: 999px;
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    background: rgba(255,255,255,.96);
+
+    color: #050505;
+
+    font-size:
+        clamp(1rem,4vw,1.3rem);
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.35),
+        0 0 50px rgba(255,255,255,.10);
+
+    opacity: 0;
+
+    transform:
+        translateY(25px)
+        scale(.95);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+
+    animation:
+        touchAppear 1s ease forwards 3s,
+        whitePulse 2s ease-in-out infinite 4s;
+}
+
+.touch-message:hover {
+    background: #fff;
+
+    transform:
+        translateY(-3px)
+        scale(1.07);
+
+    box-shadow:
+        0 0 25px rgba(255,255,255,.8),
+        0 0 60px rgba(255,255,255,.25);
+}
+
+.touch-message:active {
+    transform: scale(.95);
+}
+
+@keyframes touchAppear {
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes whitePulse {
+
+    0%,100% {
+        box-shadow:
+            0 0 15px rgba(255,255,255,.25),
+            0 0 35px rgba(255,255,255,.08);
+    }
+
+    50% {
+        box-shadow:
+            0 0 25px rgba(255,255,255,.7),
+            0 0 65px rgba(255,255,255,.2);
+    }
+}
+
+/* =========================
+   MENSAJE PARA EL UNIVERSO
+========================= */
+
+.universeHint {
+    position: fixed;
+
+    z-index: 5;
+
+    left: 50%;
+    bottom: 7%;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    color: rgba(255,255,255,.85);
+
+    font-family: 'Cinzel', serif;
+
+    font-size:
+        clamp(.9rem,3.5vw,1.15rem);
+
+    letter-spacing: 3px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    text-shadow:
+        0 0 10px white,
+        0 0 25px rgba(100,180,255,.7);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.universeHint.show {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+/* =========================
+   CARTA DE AMOR
+========================= */
+
+#letterScreen {
+    z-index: 20;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    overflow-y: auto;
+
+    justify-content: flex-start;
+
+    padding:
+        12vh 8vw 15vh;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(3,8,25,.25),
+            rgba(0,0,0,.82)
+        );
+
+    backdrop-filter:
+        blur(2px);
+}
+
+#letterScreen.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/*
+   IMPORTANTE:
+   Ya no hay recuadro.
+   La carta vive directamente sobre el universo.
+*/
+
+.letter {
+    width: min(850px, 92vw);
+
+    padding:
+        30px 10px 70px;
+
+    background: transparent;
+
+    border: none;
+
+    box-shadow: none;
+
+    animation:
+        letterAppear 1.8s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.letter-heart {
+    font-size:
+        clamp(3.5rem,13vw,6rem);
+
+    margin-bottom: 8px;
+
+    filter:
+        drop-shadow(0 0 15px #ff305f)
+        drop-shadow(0 0 40px rgba(255,30,90,.5));
+
+    animation:
+        letterHeartPulse 2.2s ease-in-out infinite;
+}
+
+.letter h1 {
+    font-family: 'Cinzel', serif;
+
+    font-size:
+        clamp(2rem,7vw,4rem);
+
+    line-height: 1.2;
+
+    margin:
+        15px 0 35px;
+
+    color: #fff;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.9),
+        0 0 30px rgba(255,100,170,.55);
+
+    font-weight: 700;
+}
+
+.letter p {
+    font-size:
+        clamp(1rem,3.4vw,1.2rem);
+
+    line-height: 2;
+
+    color:
+        rgba(255,255,255,.92);
+
+    margin-bottom: 25px;
+
+    text-align: center;
+
+    text-shadow:
+        0 2px 12px rgba(0,0,0,.9);
+}
+
+.quote {
+    margin-top: 45px;
+
+    padding:
+        25px 10px 0;
+
+    border-top:
+        1px solid rgba(255,255,255,.18);
+
+    color: #fff;
+
+    font-family: 'Cinzel', serif;
+
+    font-size:
+        clamp(1.05rem,4vw,1.4rem);
+
+    line-height: 1.8;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 15px rgba(150,210,255,.8);
+}
+
+@keyframes letterAppear {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(70px)
+            scale(.94);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes letterHeartPulse {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+/* =========================
+   EXPLOSIÓN DEL REGALO
+========================= */
+
+.particle {
+    position: fixed;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 100;
+
+    animation:
+        particleExplosion 1.8s ease-out forwards;
+}
+
+@keyframes particleExplosion {
+
+    from {
+        transform:
+            translate(0,0)
+            scale(1);
+
+        opacity: 1;
+    }
+
+    to {
+        transform:
+            translate(var(--x),var(--y))
+            scale(0);
+
+        opacity: 0;
+    }
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media (max-width: 600px) {
+
+    .gift-title {
+        margin-bottom: 0;
+    }
+
+    .birthday-heart {
+        top: 49%;
+    }
+
+    .touch-message {
+        padding:
+            14px 32px;
+
+        letter-spacing:
+            1.5px;
+    }
+
+    #letterScreen {
+        padding:
+            9vh 7vw 12vh;
+    }
+
+    .letter {
+        width: 90vw;
+    }
+
+    .letter p {
+        line-height: 1.85;
+    }
+}
 </style>
 </head>
+
 <body>
+
 <canvas id="universeCanvas"></canvas>
-<div id="darkOverlay"></div>
+
+<div id="spaceGlow"></div>
+
+<!-- =========================
+     REGALO
+========================= -->
+
 <section id="giftScreen" class="screen">
-<div class="gift-title">¡MI AMOOOR! ❤️</div>
-<div class="gift-subtitle">Tengo una sorpresa para ti...</div>
-<button id="giftButton" class="gift" aria-label="Abrir regalo">🎁</button>
-<div class="gift-hint">Toca el regalo para comenzar ✨</div>
+
+    <div class="gift-title">
+        ¡MI AMOOOR! ❤️
+    </div>
+
+    <div class="gift-subtitle">
+        Tengo una sorpresa para ti...
+    </div>
+
+    <button
+        id="giftButton"
+        class="gift"
+        aria-label="Abrir regalo">
+        🎁
+    </button>
+
+    <div class="gift-hint">
+        Toca el regalo para comenzar ✨
+    </div>
+
 </section>
+
+
+<!-- =========================
+     FELIZ CUMPLEAÑOS
+========================= -->
+
 <section id="birthdayScreen" class="screen hidden">
-<div class="led-wrapper"><div id="ledText" class="led-text">FELIZ CUMPLEAÑOS</div></div>
-<div id="birthdayHeart" class="birthday-heart">❤️</div>
-<button id="touchButton" class="touch-message">TOCA AQUÍ PARA VER NUESTRO UNIVERSO ✨</button>
+
+    <div class="led-wrapper">
+
+        <div id="ledText" class="led-text">
+            FELIZ CUMPLEAÑOS
+        </div>
+
+    </div>
+
+    <div id="birthdayHeart" class="birthday-heart">
+        ❤️
+    </div>
+
+    <button
+        id="touchButton"
+        class="touch-message">
+        TOCA AQUÍ ✨
+    </button>
+
 </section>
+
+
+<!-- =========================
+     MENSAJE UNIVERSO
+========================= -->
+
+<div
+    id="universeHint"
+    class="universeHint">
+    ENTRE MILLONES DE ESTRELLAS... ✨
+</div>
+
+
+<!-- =========================
+     CARTA
+========================= -->
+
 <section id="letterScreen" class="screen">
-<article class="letter">
-<div class="letter-heart">💖</div>
-<h1>Gracias por existir</h1>
-<p>Hoy es tu día y quiero detener un poquito el mundo para recordarte lo increíble y especial que eres para mí [cite: image_16.png].</p>
-<p>Cada día a tu lado es un regalo, y aunque hoy la distancia nos separe un poco físicamente, quiero que sepas que mi corazón está ahí mismo contigo. Eres una persona increíble, inteligente, hermosa y demasiado especial.</p>
-<p>Espero que este nuevo año de vida venga lleno de sonrisas, sueños cumplidos y muchísimas razones para ser feliz.</p>
-<p>Y si alguna vez dudas de lo importante que eres, recuerda esto: entre tantos mundos, tantas galaxias y tantas estrellas... mi coincidencia favorita sigues siendo tú.</p>
-<div class="quote">“En un universo infinito, lleno de mundos que jamás conoceremos, mi lugar favorito siempre será donde estés tú.” 🌌🤍</div>
-</article>
+
+    <article class="letter">
+
+        <div class="letter-heart">
+            💖
+        </div>
+
+        <h1>
+            Gracias por existir
+        </h1>
+
+        <p>
+            Hoy es tu día y quiero detener un poquito
+            el mundo para recordarte lo increíble y
+            especial que eres para mí.
+        </p>
+
+        <p>
+            Cada día a tu lado es un regalo, y aunque
+            hoy la distancia nos separe un poco
+            físicamente, quiero que sepas que mi corazón
+            está ahí mismo contigo.
+        </p>
+
+        <p>
+            Eres una persona increíble, inteligente,
+            hermosa y demasiado especial. Hay cosas que
+            quizá no te digo todos los días, pero quiero
+            que hoy las recuerdes todas.
+        </p>
+
+        <p>
+            Espero que este nuevo año de vida venga
+            lleno de sonrisas, sueños cumplidos y
+            muchísimas razones para ser feliz.
+        </p>
+
+        <p>
+            Y si alguna vez dudas de lo importante que
+            eres, recuerda esto: entre tantos mundos,
+            tantas galaxias y tantas estrellas...
+            mi coincidencia favorita sigues siendo tú.
+        </p>
+
+        <div class="quote">
+            “En un universo infinito, lleno de mundos
+            que jamás conoceremos, mi lugar favorito
+            siempre será donde estés tú.” 🌌🤍
+        </div>
+
+    </article>
+
 </section>
+
+
 <script>
-const giftScreen = document.getElementById("giftScreen");
-const birthdayScreen = document.getElementById("birthdayScreen");
-const letterScreen = document.getElementById("letterScreen");
-const giftButton = document.getElementById("giftButton");
-const ledText = document.getElementById("ledText");
-const birthdayHeart = document.getElementById("birthdayHeart");
-const touchButton = document.getElementById("touchButton");
-const canvas = document.getElementById("universeCanvas");
-const ctx = canvas.getContext("2d");
-let width, height, stars = [];
+
+/* =====================================================
+   ELEMENTOS
+===================================================== */
+
+const giftScreen =
+    document.getElementById("giftScreen");
+
+const birthdayScreen =
+    document.getElementById("birthdayScreen");
+
+const letterScreen =
+    document.getElementById("letterScreen");
+
+const giftButton =
+    document.getElementById("giftButton");
+
+const ledText =
+    document.getElementById("ledText");
+
+const birthdayHeart =
+    document.getElementById("birthdayHeart");
+
+const touchButton =
+    document.getElementById("touchButton");
+
+const canvas =
+    document.getElementById("universeCanvas");
+
+const spaceGlow =
+    document.getElementById("spaceGlow");
+
+const universeHint =
+    document.getElementById("universeHint");
+
+const ctx =
+    canvas.getContext("2d", {
+        alpha: false
+    });
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let width;
+let height;
+
+let stars = [];
+
 let universeStarted = false;
+
 let heartFormed = false;
+
 let heartClicked = false;
-const isMobile = window.innerWidth < 600;
+
+let mouseX = 0;
+let mouseY = 0;
+
+let targetMouseX = 0;
+let targetMouseY = 0;
+
+const isMobile =
+    window.innerWidth < 600;
+
+
+/* =====================================================
+   CANVAS
+===================================================== */
 
 function resizeCanvas() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
 
-giftButton.addEventListener("click", openGift);
+    const dpr =
+        Math.min(window.devicePixelRatio || 1, 2);
+
+    width =
+        window.innerWidth;
+
+    height =
+        window.innerHeight;
+
+    canvas.width =
+        width * dpr;
+
+    canvas.height =
+        height * dpr;
+
+    canvas.style.width =
+        width + "px";
+
+    canvas.style.height =
+        height + "px";
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+}
+
+resizeCanvas();
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* =====================================================
+   MOVIMIENTO DEL RATÓN
+===================================================== */
+
+window.addEventListener(
+    "mousemove",
+    event => {
+
+        targetMouseX =
+            (event.clientX / width - .5);
+
+        targetMouseY =
+            (event.clientY / height - .5);
+    }
+);
+
+
+/* =====================================================
+   MOVIMIENTO TÁCTIL
+===================================================== */
+
+window.addEventListener(
+    "touchmove",
+    event => {
+
+        if (!event.touches[0]) return;
+
+        targetMouseX =
+            (event.touches[0].clientX / width - .5);
+
+        targetMouseY =
+            (event.touches[0].clientY / height - .5);
+    },
+    { passive: true }
+);
+
+
+/* =====================================================
+   REGALO
+===================================================== */
+
+giftButton.addEventListener(
+    "click",
+    openGift
+);
+
 function openGift() {
+
     createExplosion();
-    giftScreen.classList.add("hidden");
+
+    giftScreen.classList.add(
+        "hidden"
+    );
+
     setTimeout(() => {
-        birthdayScreen.classList.remove("hidden");
+
+        birthdayScreen.classList.remove(
+            "hidden"
+        );
+
         startBirthdaySequence();
+
     }, 600);
 }
+
+
+/* =====================================================
+   SECUENCIA CUMPLEAÑOS
+===================================================== */
 
 function startBirthdaySequence() {
-    setTimeout(() => {
-        ledText.classList.add("pop");
-    }, 400); // Feliz Cumpleaños aparece instantáneamente con pop
 
     setTimeout(() => {
-        birthdayHeart.classList.add("show");
-    }, 1500); // Corazón aparece rápido
+
+        ledText.classList.add(
+            "pop"
+        );
+
+    }, 400);
+
+
+    setTimeout(() => {
+
+        birthdayHeart.classList.add(
+            "show"
+        );
+
+    }, 1500);
 }
 
-touchButton.addEventListener("click", startUniverse);
+
+/* =====================================================
+   INICIAR UNIVERSO
+===================================================== */
+
+touchButton.addEventListener(
+    "click",
+    startUniverse
+);
+
 function startUniverse() {
-    if (universeStarted) return;
+
+    if (universeStarted)
+        return;
+
     universeStarted = true;
-    birthdayScreen.classList.add("hidden");
+
+    birthdayScreen.classList.add(
+        "hidden"
+    );
+
     setTimeout(() => {
+
         canvas.style.opacity = "1";
-        createUniverseStars();
+
+        spaceGlow.style.opacity = "1";
+
+        createUniverse();
+
         animateUniverse();
+
         setTimeout(() => {
+
+            universeHint.classList.add(
+                "show"
+            );
+
+        }, 700);
+
+        setTimeout(() => {
+
+            universeHint.classList.remove(
+                "show"
+            );
+
             formHeart();
-        }, 1500); // Corazón se forma rápido en el universo
-    }, 600);
+
+        }, 3200);
+
+    }, 500);
 }
 
-function createUniverseStars() {
+
+/* =====================================================
+   CREAR UNIVERSO 3D
+===================================================== */
+
+function createUniverse() {
+
     stars = [];
-    const amount = isMobile ? 300 : 700; // Optimizado: menos estrellas en móvil
-    const colors = ["#ffffff", "#fff9b0", "#ffe45e", "#78dfff", "#3fa9ff", "#b9f2ff"];
-    for (let i = 0; i < amount; i++) {
+
+    const amount =
+        isMobile ? 650 : 1300;
+
+    const colors = [
+        "#ffffff",
+        "#ffffff",
+        "#dff6ff",
+        "#bdeaff",
+        "#ffeeb0",
+        "#fff8d2",
+        "#8ddcff"
+    ];
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
         stars.push({
-            x: (Math.random() - .5) * width * 4,
-            y: (Math.random() - .5) * height * 4,
-            z: Math.random() * 2 + .2,
-            size: isMobile ? (Math.random() * 1.8 + .3) : (Math.random() * 2.3 + .4),
-            color: colors[Math.floor(Math.random() * colors.length)],
-            speed: isMobile ? (Math.random() * .015 + .006) : (Math.random() * .022 + .007), // Más rápido en escritorio
-            twinkle: Math.random() * Math.PI * 2
+
+            x:
+                (Math.random() - .5)
+                * width
+                * 5,
+
+            y:
+                (Math.random() - .5)
+                * height
+                * 5,
+
+            z:
+                Math.random()
+                * 4
+                + .3,
+
+            size:
+                Math.random()
+                * 2.2
+                + .25,
+
+            color:
+                colors[
+                    Math.floor(
+                        Math.random()
+                        * colors.length
+                    )
+                ],
+
+            speed:
+                Math.random()
+                * .018
+                + .004,
+
+            twinkle:
+                Math.random()
+                * Math.PI
+                * 2,
+
+            drift:
+                Math.random()
+                * Math.PI
+                * 2,
+
+            driftSpeed:
+                Math.random()
+                * .004
+                + .001,
+
+            isHeartParticle:
+                false
         });
     }
 }
 
+
+/* =====================================================
+   ANIMACIÓN UNIVERSO
+===================================================== */
+
 function animateUniverse() {
-    requestAnimationFrame(animateUniverse);
-    ctx.clearRect(0, 0, width, height);
-    const gradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, Math.max(width,height));
-    gradient.addColorStop(0, "#0b1538"); gradient.addColorStop(.4, "#030817"); gradient.addColorStop(1, "#000");
-    ctx.fillStyle = gradient; ctx.fillRect(0, 0, width, height);
-    const time = Date.now() * 0.001;
-    stars.forEach(star => {
-        star.z -= star.speed;
-        let k = 128 / star.z;
-        let px = star.x * k + width/2;
-        let py = star.y * k + height/2;
-        if (star.z < 0.1 || px < 0 || px > width || py < 0 || py > height) {
-            star.z = 2 + Math.random();
-            star.x = (Math.random() - .5) * width * 4;
-            star.y = (Math.random() - .5) * height * 4;
-            return;
+
+    requestAnimationFrame(
+        animateUniverse
+    );
+
+    if (!universeStarted)
+        return;
+
+    mouseX +=
+        (targetMouseX - mouseX)
+        * .025;
+
+    mouseY +=
+        (targetMouseY - mouseY)
+        * .025;
+
+    ctx.fillStyle = "#000";
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+    const time =
+        performance.now()
+        * .001;
+
+
+    /* Fondo */
+
+    const background =
+        ctx.createRadialGradient(
+            width / 2,
+            height / 2,
+            0,
+            width / 2,
+            height / 2,
+            Math.max(width,height)
+        );
+
+    background.addColorStop(
+        0,
+        "#050914"
+    );
+
+    background.addColorStop(
+        .35,
+        "#02040b"
+    );
+
+    background.addColorStop(
+        1,
+        "#000000"
+    );
+
+    ctx.fillStyle =
+        background;
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /* Estrellas */
+
+    for (
+        let i = 0;
+        i < stars.length;
+        i++
+    ) {
+
+        const star =
+            stars[i];
+
+
+        /* Movimiento hacia cámara */
+
+        if (!star.isHeartParticle) {
+
+            star.z -=
+                star.speed;
+
+            star.x +=
+                Math.sin(
+                    time * star.driftSpeed
+                    + star.drift
+                ) * .08;
+
+            star.y +=
+                Math.cos(
+                    time * star.driftSpeed
+                    + star.drift
+                ) * .08;
         }
-        let twinkle = Math.sin(time + star.twinkle) * 0.5 + 0.5;
-        let opacity = twinkle * 0.6 + 0.4;
-        let currentSize = star.size * k;
-        if (currentSize > 6) currentSize = 6;
+
+
+        /* Perspectiva 3D */
+
+        const perspective =
+            280 / star.z;
+
+
+        let px =
+            star.x
+            * perspective
+            + width / 2;
+
+        let py =
+            star.y
+            * perspective
+            + height / 2;
+
+
+        /* Parallax */
+
+        px +=
+            mouseX
+            * star.z
+            * 10;
+
+        py +=
+            mouseY
+            * star.z
+            * 10;
+
+
+        /* Reiniciar estrellas */
+
+        if (
+            star.z < .08 ||
+            px < -100 ||
+            px > width + 100 ||
+            py < -100 ||
+            py > height + 100
+        ) {
+
+            if (
+                !star.isHeartParticle
+            ) {
+
+                star.z =
+                    4.2;
+
+                star.x =
+                    (Math.random() - .5)
+                    * width
+                    * 5;
+
+                star.y =
+                    (Math.random() - .5)
+                    * height
+                    * 5;
+            }
+        }
+
+
+        let twinkle =
+            Math.sin(
+                time * 2
+                + star.twinkle
+            ) * .5 + .5;
+
+
+        let alpha =
+            .45
+            + twinkle * .55;
+
+
+        let size =
+            star.size
+            * perspective;
+
+
+        if (size > 7)
+            size = 7;
+
+        if (size < .25)
+            size = .25;
+
+
+        /* Halo */
+
+        if (size > 2) {
+
+            const glow =
+                ctx.createRadialGradient(
+                    px,
+                    py,
+                    0,
+                    px,
+                    py,
+                    size * 5
+                );
+
+            glow.addColorStop(
+                0,
+                star.color
+            );
+
+            glow.addColorStop(
+                .2,
+                star.color
+            );
+
+            glow.addColorStop(
+                1,
+                "transparent"
+            );
+
+            ctx.globalAlpha =
+                alpha * .35;
+
+            ctx.fillStyle =
+                glow;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                px,
+                py,
+                size * 5,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fill();
+        }
+
+
+        /* Estrella */
+
+        ctx.globalAlpha =
+            alpha;
+
+        ctx.fillStyle =
+            star.color;
+
         ctx.beginPath();
-        ctx.arc(px, py, currentSize / 2, 0, Math.PI * 2);
-        ctx.fillStyle = star.color;
-        ctx.globalAlpha = opacity;
+
+        ctx.arc(
+            px,
+            py,
+            size / 2,
+            0,
+            Math.PI * 2
+        );
+
         ctx.fill();
+
         ctx.globalAlpha = 1;
-    });
+    }
 }
 
+
+/* =====================================================
+   FORMAR CORAZÓN CON PARTÍCULAS
+===================================================== */
+
 function formHeart() {
-    const numPartículas = isMobile ? 180 : 400; // Optimizado: menos partículas del corazón
+
+    const numberParticles =
+        isMobile ? 260 : 500;
+
     const heartPoints = [];
-    const scale = isMobile ? (width * 0.016) : (width * 0.012);
-    // Fórmula paramétrica simple y rápida
-    for (let i = 0; i < numPartículas; i++) {
-        let t = Math.random() * Math.PI * 2;
-        let x = 16 * Math.pow(Math.sin(t), 3);
-        let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-        heartPoints.push({ x: x * scale + width/2, y: y * scale + height/2 });
+
+    const scale =
+        Math.min(
+            width,
+            height
+        ) * .018;
+
+
+    /*
+       Generamos puntos dentro
+       del corazón, no solamente
+       sobre el borde.
+    */
+
+    for (
+        let i = 0;
+        i < numberParticles;
+        i++
+    ) {
+
+        const t =
+            Math.random()
+            * Math.PI
+            * 2;
+
+        const radius =
+            Math.sqrt(
+                Math.random()
+            );
+
+        const x =
+            16
+            * Math.pow(
+                Math.sin(t),
+                3
+            )
+            * radius;
+
+        const y =
+            -(
+                13 * Math.cos(t)
+                - 5 * Math.cos(2*t)
+                - 2 * Math.cos(3*t)
+                - Math.cos(4*t)
+            )
+            * radius;
+
+
+        heartPoints.push({
+
+            x:
+                x * scale
+                + width / 2,
+
+            y:
+                y * scale
+                + height / 2
+        });
     }
-    const colorCorazon = "#ff305f";
-    // Convertir rápidamente estrellas en corazón
-    const startCount = stars.length;
-    for (let i = 0; i < numPartículas; i++) {
-        if (i >= startCount) {
-             stars.push({ x: (Math.random() - .5) * width * 4, y: (Math.random() - .5) * height * 4, z: Math.random() * 2 + .2, size: 1.5, color: "#ffffff", speed: 0.01, twinkle: 0 });
+
+
+    for (
+        let i = 0;
+        i < numberParticles;
+        i++
+    ) {
+
+        let star =
+            stars[i];
+
+
+        if (!star) {
+
+            star = {
+
+                x:
+                    (Math.random() - .5)
+                    * width
+                    * 5,
+
+                y:
+                    (Math.random() - .5)
+                    * height
+                    * 5,
+
+                z:
+                    Math.random()
+                    * 3
+                    + .5,
+
+                size:
+                    Math.random()
+                    * 2
+                    + 1,
+
+                color:
+                    "#ff4675",
+
+                speed:
+                    .01,
+
+                twinkle:
+                    Math.random()
+                    * Math.PI
+                    * 2,
+
+                drift:
+                    Math.random()
+                    * Math.PI
+                    * 2,
+
+                driftSpeed:
+                    .002,
+
+                isHeartParticle:
+                    false
+            };
+
+            stars.push(star);
         }
-        stars[i].isHeartParticle = true;
-        stars[i].targetX = heartPoints[i].x;
-        stars[i].targetY = heartPoints[i].y;
-        stars[i].color = colorCorazon;
-        stars[i].size = isMobile ? (Math.random() * 2 + 1) : (Math.random() * 3.5 + 1.2);
+
+
+        star.isHeartParticle =
+            true;
+
+        star.targetX =
+            heartPoints[i].x;
+
+        star.targetY =
+            heartPoints[i].y;
+
+        star.color =
+            i % 8 === 0
+                ? "#ffffff"
+                : "#ff3d6e";
+
+        star.size =
+            isMobile
+                ? Math.random() * 2 + 1
+                : Math.random() * 3 + 1;
     }
-    setTimeout(() => {
-        heartFormed = true;
-        canvas.style.pointerEvents = "auto";
-        canvas.addEventListener("click", showLetter); // <--- Táctil
-    }, 2000); // Corazón se forma rápido visualmente
+
+
     moveParticlesToHeart();
 }
 
+
+/* =====================================================
+   MOVIMIENTO DE LAS PARTÍCULAS
+===================================================== */
+
 function moveParticlesToHeart() {
-    if (!universeStarted || heartClicked) return;
-    const lerpFactor = 0.06; // Ajustado para ser fluido
-    stars.forEach(star => {
-        if (!star.isHeartParticle) return;
-        let k = 128 / star.z;
-        let currentPx = star.x * k + width/2;
-        let currentPy = star.y * k + height/2;
-        let dx = star.targetX - currentPx;
-        let dy = star.targetY - currentPy;
-        let newPx = currentPx + dx * lerpFactor;
-        let newPy = currentPy + dy * lerpFactor;
-        star.x = (newPx - width/2) / k;
-        star.y = (newPy - height/2) / k;
-    });
-    if (!heartClicked) {
-        requestAnimationFrame(moveParticlesToHeart);
+
+    if (
+        !universeStarted ||
+        heartClicked
+    )
+        return;
+
+
+    let arrived = true;
+
+
+    for (
+        let i = 0;
+        i < stars.length;
+        i++
+    ) {
+
+        const star =
+            stars[i];
+
+
+        if (
+            !star.isHeartParticle
+        )
+            continue;
+
+
+        const perspective =
+            280 / star.z;
+
+
+        const currentX =
+            star.x
+            * perspective
+            + width / 2;
+
+
+        const currentY =
+            star.y
+            * perspective
+            + height / 2;
+
+
+        const dx =
+            star.targetX
+            - currentX;
+
+
+        const dy =
+            star.targetY
+            - currentY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx
+                + dy * dy
+            );
+
+
+        if (distance > 2)
+            arrived = false;
+
+
+        const factor =
+            distance > 200
+                ? .035
+                : .08;
+
+
+        const newX =
+            currentX
+            + dx * factor;
+
+
+        const newY =
+            currentY
+            + dy * factor;
+
+
+        star.x =
+            (newX - width / 2)
+            / perspective;
+
+
+        star.y =
+            (newY - height / 2)
+            / perspective;
+
+
+        /*
+           El corazón también tiene
+           un pequeño movimiento
+           para que no parezca una
+           imagen estática.
+        */
+
+        star.targetX +=
+            Math.sin(
+                performance.now() * .0015
+                + i
+            ) * .015;
+
+        star.targetY +=
+            Math.cos(
+                performance.now() * .0015
+                + i
+            ) * .015;
     }
+
+
+    if (arrived && !heartFormed) {
+
+        heartFormed = true;
+
+        showHeartReady();
+    }
+
+
+    requestAnimationFrame(
+        moveParticlesToHeart
+    );
 }
+
+
+/* =====================================================
+   CORAZÓN LISTO
+===================================================== */
+
+function showHeartReady() {
+
+    /*
+       Después de unos segundos
+       permitimos tocar el universo.
+    */
+
+    setTimeout(() => {
+
+        canvas.style.cursor =
+            "pointer";
+
+        canvas.style.pointerEvents =
+            "auto";
+
+        canvas.addEventListener(
+            "click",
+            showLetter
+        );
+
+    }, 1200);
+}
+
+
+/* =====================================================
+   MOSTRAR CARTA
+===================================================== */
 
 function showLetter() {
-    if (!heartFormed || heartClicked) return;
+
+    if (
+        !heartFormed ||
+        heartClicked
+    )
+        return;
+
+
     heartClicked = true;
-    canvas.style.opacity = "0";
+
+    canvas.style.pointerEvents =
+        "none";
+
+    universeHint.classList.remove(
+        "show"
+    );
+
+
+    /*
+       El universo permanece
+       ligeramente visible detrás
+       de la carta.
+    */
+
     setTimeout(() => {
-        letterScreen.classList.add("show");
-        const letter = document.querySelector('.letter');
-        if (letter) letter.scrollTop = 0;
-    }, 600);
+
+        letterScreen.classList.add(
+            "show"
+        );
+
+    }, 700);
 }
 
+
+/* =====================================================
+   EXPLOSIÓN DEL REGALO
+===================================================== */
+
 function createExplosion() {
-    const amount = isMobile ? 30 : 60;
-    const colors = ["#ffffff", "#ff174f", "#ff007f", "#4ddfff", "#ffe45e"];
-    for (let i = 0; i < amount; i++) {
-        const particle = document.createElement("div");
-        particle.className = "particle";
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        const giftButtonRect = giftButton.getBoundingClientRect();
-        particle.style.left = (giftButtonRect.left + giftButtonRect.width/2) + "px";
-        particle.style.top = (giftButtonRect.top + giftButtonRect.height/2) + "px";
-        const angle = Math.random() * Math.PI * 2;
-        const radius = isMobile ? (50 + Math.random() * 100) : (80 + Math.random() * 180);
-        particle.style.setProperty("--x", (Math.cos(angle) * radius) + "px");
-        particle.style.setProperty("--y", (Math.sin(angle) * radius) + "px");
-        const size = isMobile ? (Math.random() * 4 + 2.5) : (Math.random() * 6 + 3);
-        particle.style.width = size + "px";
-        particle.style.height = size + "px";
-        document.body.appendChild(particle);
-        setTimeout(() => { particle.remove(); }, 1800);
+
+    const amount =
+        isMobile ? 35 : 70;
+
+    const colors = [
+        "#ffffff",
+        "#ff174f",
+        "#ff007f",
+        "#4ddfff",
+        "#ffe45e"
+    ];
+
+
+    const rect =
+        giftButton.getBoundingClientRect();
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        const particle =
+            document.createElement(
+                "div"
+            );
+
+
+        particle.className =
+            "particle";
+
+
+        particle.style.background =
+            colors[
+                Math.floor(
+                    Math.random()
+                    * colors.length
+                )
+            ];
+
+
+        particle.style.left =
+            (
+                rect.left
+                + rect.width / 2
+            ) + "px";
+
+
+        particle.style.top =
+            (
+                rect.top
+                + rect.height / 2
+            ) + "px";
+
+
+        const angle =
+            Math.random()
+            * Math.PI
+            * 2;
+
+
+        const radius =
+            isMobile
+                ? 50 + Math.random() * 120
+                : 80 + Math.random() * 200;
+
+
+        particle.style.setProperty(
+            "--x",
+            Math.cos(angle)
+            * radius
+            + "px"
+        );
+
+
+        particle.style.setProperty(
+            "--y",
+            Math.sin(angle)
+            * radius
+            + "px"
+        );
+
+
+        const size =
+            isMobile
+                ? Math.random() * 4 + 2.5
+                : Math.random() * 6 + 3;
+
+
+        particle.style.width =
+            size + "px";
+
+        particle.style.height =
+            size + "px";
+
+
+        document.body.appendChild(
+            particle
+        );
+
+
+        setTimeout(() => {
+
+            particle.remove();
+
+        }, 1800);
     }
 }
+
 </script>
+
 </body>
 </html>
