@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Cumpleaños, mi amor!</title>
+    <title>¡Feliz Cumpleaños, Mi Amor!</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #0d0d1a;
+            background-color: #050510;
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -18,21 +17,37 @@
             min-height: 100vh;
             overflow: hidden;
             text-align: center;
+            position: relative;
+        }
+
+        /* Canvas para la Galaxia Estelar */
+        #galaxyCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 2s ease;
         }
 
         .container {
             position: relative;
-            z-index: 2;
+            z-index: 10;
             padding: 20px;
-            max-width: 600px;
+            max-width: 650px;
+            width: 90%;
         }
 
+        /* Fase 1: Regalo */
         .gift-box {
-            font-size: 80px;
+            font-size: 90px;
             cursor: pointer;
             animation: dropDown 1.2s ease-out forwards, bounce 2s infinite 1.2s;
             display: inline-block;
             user-select: none;
+            filter: drop-shadow(0 0 15px rgba(255,105,180,0.6));
         }
 
         @keyframes dropDown {
@@ -48,103 +63,213 @@
 
         .instructions {
             margin-top: 15px;
-            font-size: 1.1em;
+            font-size: 1.2em;
             color: #ff99c8;
-            animation: fadeIn 2s infinite alternate;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255,153,200,0.5);
         }
 
+        /* Card Glassmorphism */
         .card {
             display: none;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid #ff4d6d;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 0 25px rgba(255, 77, 109, 0.4);
+            background: rgba(15, 15, 35, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            border-radius: 24px;
+            padding: 35px 25px;
+            box-shadow: 0 0 35px rgba(255, 77, 109, 0.25);
             animation: popIn 0.8s ease-out forwards;
         }
 
         @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
+            0% { transform: scale(0.6); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
+        }
+
+        .big-heart {
+            font-size: 85px;
+            cursor: pointer;
+            display: inline-block;
+            animation: pulse 1.2s infinite;
+            filter: drop-shadow(0 0 20px #ff4d6d);
+            user-select: none;
+            transition: transform 0.2s;
+        }
+
+        .big-heart:hover { transform: scale(1.3); }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.18); }
+            100% { transform: scale(1); }
         }
 
         h1 {
             color: #ff4d6d;
-            font-size: 2.2em;
-            margin-bottom: 10px;
-        }
-
-        .heart {
-            font-size: 60px;
-            color: #ff4d6d;
-            animation: pulse 1.2s infinite;
+            font-size: 2.3em;
             margin: 15px 0;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+            text-shadow: 0 0 12px rgba(255,77,109,0.5);
         }
 
         p {
             font-size: 1.1em;
-            line-height: 1.6;
-            color: #f0f0f0;
+            line-height: 1.7;
+            color: #e2e2fe;
+            margin-bottom: 15px;
+            font-weight: 300;
         }
 
-        .click-prompt {
-            font-size: 0.9em;
-            color: #aaa;
+        .galaxy-quote {
+            font-style: italic;
+            color: #8be9fd;
+            font-size: 1.15em;
+            margin-top: 20px;
+            text-shadow: 0 0 10px rgba(139, 233, 253, 0.6);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+
+        /* Lluvia de corazones */
+        .falling-heart {
+            position: absolute;
+            top: -20px;
+            color: #ff4d6d;
+            font-size: 24px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 20;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
+    <canvas id="galaxyCanvas"></canvas>
+
     <div class="container">
-        <!-- Regalo inicial -->
         <div id="giftSection">
             <div class="gift-box" onclick="openGift()">🎁</div>
-            <div class="instructions">¡Haz clic en el regalo para abrirlo! ✨</div>
+            <div class="instructions">¡Toca el regalo para comenzar! ✨</div>
         </div>
 
-        <!-- Carta oculta -->
-        <div class="card" id="cardSection">
-            <div class="heart">❤️</div>
+        <div class="card" id="welcomeSection">
+            <div class="big-heart" onclick="showLetter()">❤️</div>
             <h1>¡Feliz Cumpleaños, Mi Amor!</h1>
+            <div class="instructions">Haz clic en el corazón para leer tu carta... 💌</div>
+        </div>
+
+        <div class="card" id="letterSection">
+            <div class="big-heart" style="font-size: 50px;">💖</div>
+            <h1>Gracias por existir</h1>
             <p>
-                Aunque hoy nos separe la distancia, mi corazón está ahí mismo contigo celebrando tu vida.
-                Que las millas no te confundan: mi amor por ti es inmenso y este detalle es solo una pequeña muestra de lo mucho que te amo y de lo importante que eres para mí. 
+                Hoy solo quiero darte las gracias por estar en este mundo y por iluminar mi vida. Me encantaría estar justo a tu lado celebrándote y dándote ese abrazo que tanto me hace falta, pero como hoy la distancia no nos lo permite, me hace muy feliz poder expresarme a través de la programación, un lenguaje que sé que también entiendes y aprecias.
             </p>
             <p>
-                Espero que hoy sonrías mucho, que te concientan como te mereces y que sientas muy cerquita mi abrazo. ¡Te amo con todo mi corazón! 🎉✨
+                Eres una persona increíble, inteligente y muy especial para mí. Te amo con todo mi corazón y deseo que este nuevo año esté lleno de momentos hermosos para ti.
             </p>
+            <div class="galaxy-quote">
+                "En un universo infinito con billones de galaxias y millones de estrellas, mi coincidencia favorita siempre serás tú." ✨🌌
+            </div>
         </div>
     </div>
 
     <script>
+        // Paso 1: Abrir Regalo
         function openGift() {
-            // Oculta el regalo
             document.getElementById('giftSection').style.display = 'none';
-            // Muestra la carta
-            document.getElementById('cardSection').style.display = 'block';
+            document.getElementById('welcomeSection').style.display = 'block';
 
-            // Explota de confeti
-            var count = 200;
-            var defaults = { origin: { y: 0.7 } };
+            // Confeti clásico
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+        }
 
-            function fire(particleRatio, opts) {
-                confetti(Object.assign({}, defaults, opts, {
-                    particleCount: Math.floor(count * particleRatio)
-                }));
+        // Paso 2: Mostrar Carta + Lluvia de Corazones + Galaxia
+        function showLetter() {
+            document.getElementById('welcomeSection').style.display = 'none';
+            document.getElementById('letterSection').style.display = 'block';
+
+            // Activar Galaxia
+            const canvas = document.getElementById('galaxyCanvas');
+            canvas.style.opacity = '1';
+            initGalaxy();
+
+            // Lluvia de Corazones
+            for (let i = 0; i < 40; i++) {
+                setTimeout(createHeart, i * 120);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = ['❤️', '💖', '💕', '✨'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 15 + 20 + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        // Sistema de Galaxia Animada en Canvas
+        function initGalaxy() {
+            const canvas = document.getElementById('galaxyCanvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const stars = [];
+            const numStars = 250;
+
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.8,
+                    color: ['#ffffff', '#ff79c6', '#8be9fd', '#bd93f9'][Math.floor(Math.random() * 4)],
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005
+                });
             }
 
-            fire(0.25, { spread: 26, startVelocity: 55, });
-            fire(0.2, { spread: 60, });
-            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-            fire(0.1, { spread: 120, startVelocity: 45, });
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+
+                // Fondo neblina espacial
+                let gradient = ctx.createRadialGradient(width/2, height/2, 50, width/2, height/2, width/1.2);
+                gradient.addColorStop(0, 'rgba(25, 10, 45, 0.8)');
+                gradient.addColorStop(1, 'rgba(5, 5, 16, 1)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+
+                // Dibujar y animar estrellas (parpadeo)
+                stars.forEach(star => {
+                    star.alpha += star.speed;
+                    if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
+
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = star.color;
+                    ctx.globalAlpha = Math.abs(star.alpha);
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = star.color;
+                    ctx.fill();
+                });
+
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            draw();
         }
     </script>
 </body>
