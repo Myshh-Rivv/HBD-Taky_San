@@ -9,10 +9,6 @@
 
 <style>
 
-/* =====================================================
-   BASE
-===================================================== */
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -33,7 +29,6 @@ button{
     font-family:inherit;
 }
 
-
 /* =====================================================
    UNIVERSO
 ===================================================== */
@@ -50,7 +45,6 @@ button{
     background:#000;
 }
 
-
 /* =====================================================
    PANTALLAS
 ===================================================== */
@@ -62,7 +56,6 @@ button{
 
     display:flex;
     flex-direction:column;
-
     justify-content:center;
     align-items:center;
 
@@ -81,7 +74,6 @@ button{
     transform:scale(.96);
 }
 
-
 /* =====================================================
    REGALO
 ===================================================== */
@@ -97,12 +89,8 @@ button{
 
 .gift-title{
     font-family:'Cinzel',serif;
-
-    font-size:
-        clamp(2.2rem,8vw,4.5rem);
-
+    font-size:clamp(2.2rem,8vw,4.5rem);
     color:#fff;
-
     margin-bottom:5px;
 
     text-shadow:
@@ -113,23 +101,17 @@ button{
 
 .gift-subtitle{
     color:rgba(255,255,255,.8);
-
-    font-size:
-        clamp(1rem,3.5vw,1.25rem);
-
+    font-size:clamp(1rem,3.5vw,1.25rem);
     margin-bottom:25px;
 }
 
 .gift{
     border:none;
-
     background:transparent;
 
-    font-size:
-        clamp(9rem,35vw,15rem);
+    font-size:clamp(9rem,35vw,15rem);
 
     cursor:pointer;
-
     user-select:none;
 
     animation:
@@ -185,10 +167,7 @@ button{
 
 .gift-hint{
     margin-top:15px;
-
-    color:
-        rgba(255,255,255,.6);
-
+    color:rgba(255,255,255,.6);
     font-size:1rem;
 
     animation:
@@ -205,7 +184,6 @@ button{
         opacity:1;
     }
 }
-
 
 /* =====================================================
    FELIZ CUMPLEAÑOS
@@ -224,16 +202,12 @@ button{
 
 .led-wrapper{
     position:absolute;
-
     top:40%;
-
-    transform:
-        translateY(-50%);
+    transform:translateY(-50%);
 
     width:100%;
 
     display:flex;
-
     justify-content:center;
     align-items:center;
 
@@ -251,7 +225,6 @@ button{
     color:#fff;
 
     opacity:0;
-
     transform:scale(.5);
 
     text-shadow:
@@ -270,7 +243,6 @@ button{
 
     0%{
         opacity:0;
-
         transform:
             scale(.5)
             translateY(30px);
@@ -284,7 +256,6 @@ button{
 
     100%{
         opacity:1;
-
         transform:
             scale(1)
             translateY(0);
@@ -317,7 +288,6 @@ button{
         clamp(6rem,25vw,12rem);
 
     opacity:0;
-
     transform:scale(.2);
 
     pointer-events:none;
@@ -369,9 +339,8 @@ button{
     }
 }
 
-
 /* =====================================================
-   BOTÓN TOCA AQUÍ
+   BOTÓN
 ===================================================== */
 
 #touchButton{
@@ -379,7 +348,6 @@ button{
     position:absolute;
 
     bottom:11%;
-
     left:50%;
 
     transform:
@@ -393,8 +361,7 @@ button{
 
     min-width:190px;
 
-    padding:
-        16px 38px;
+    padding:16px 38px;
 
     border-radius:60px;
 
@@ -424,12 +391,8 @@ button{
         0 0 35px rgba(255,255,255,.5);
 
     animation:
-        buttonAppear 1s
-        ease forwards 3s,
-
-        buttonGlow 1.7s
-        ease-in-out
-        infinite 4s;
+        buttonAppear 1s ease forwards 3s,
+        buttonGlow 1.7s ease-in-out infinite 4s;
 
     transition:
         transform .2s ease,
@@ -452,9 +415,6 @@ button{
     transform:
         translateX(-50%)
         scale(.92);
-
-    box-shadow:
-        0 0 40px white;
 }
 
 @keyframes buttonAppear{
@@ -491,7 +451,6 @@ button{
     }
 }
 
-
 /* =====================================================
    CARTA
 ===================================================== */
@@ -499,23 +458,19 @@ button{
 #letterScreen{
 
     position:fixed;
-
     inset:0;
 
     z-index:30;
 
     opacity:0;
-
     pointer-events:none;
 
     display:block;
 
     width:100%;
-
     height:100dvh;
 
     overflow-y:auto;
-
     overflow-x:hidden;
 
     padding:
@@ -549,11 +504,9 @@ button{
 
 .letter{
 
-    width:
-        min(800px,94vw);
+    width:min(800px,94vw);
 
-    margin:
-        0 auto;
+    margin:0 auto;
 
     padding:
         45px
@@ -570,39 +523,26 @@ button{
 
     0%{
         opacity:0;
-
-        transform:
-            translateY(50px);
+        transform:translateY(50px);
     }
 
     100%{
         opacity:1;
-
-        transform:
-            translateY(0);
+        transform:translateY(0);
     }
 }
 
 .letter-heart{
 
     font-size:5rem;
-
     margin-bottom:10px;
 
     animation:
-        letterHeart 2s
-        ease-in-out
-        infinite;
+        letterHeart 2s ease-in-out infinite;
 
     filter:
-        drop-shadow(
-            0 0 12px
-            #ff174f
-        )
-        drop-shadow(
-            0 0 30px
-            #ff174f
-        );
+        drop-shadow(0 0 12px #ff174f)
+        drop-shadow(0 0 30px #ff174f);
 }
 
 @keyframes letterHeart{
@@ -688,8 +628,7 @@ button{
     color:white;
 
     text-shadow:
-        0 0 15px
-        #ff3d7f;
+        0 0 15px #ff3d7f;
 }
 
 .final-hint{
@@ -710,7 +649,6 @@ button{
 #finalTrigger{
 
     width:100%;
-
     height:10px;
 
     margin-top:20px;
@@ -718,15 +656,13 @@ button{
     pointer-events:none;
 }
 
-
 /* =====================================================
-   PANTALLA FINAL
+   FINAL
 ===================================================== */
 
 #finalScreen{
 
     position:fixed;
-
     inset:0;
 
     z-index:200;
@@ -734,13 +670,11 @@ button{
     display:flex;
 
     justify-content:center;
-
     align-items:center;
 
     background:#000;
 
     opacity:0;
-
     pointer-events:none;
 
     transition:
@@ -814,9 +748,8 @@ button{
     }
 }
 
-
 /* =====================================================
-   FECHA FINAL
+   FECHA
 ===================================================== */
 
 #dateText{
@@ -824,7 +757,6 @@ button{
     position:absolute;
 
     top:42%;
-
     left:50%;
 
     transform:
@@ -856,7 +788,8 @@ button{
 
     transition:
         opacity 1.3s ease,
-        transform 1.3s cubic-bezier(.16,1,.3,1);
+        transform 1.3s
+        cubic-bezier(.16,1,.3,1);
 }
 
 #dateText.show{
@@ -868,7 +801,6 @@ button{
         scale(1);
 }
 
-
 /* =====================================================
    MENSAJE FINAL
 ===================================================== */
@@ -878,7 +810,6 @@ button{
     position:absolute;
 
     top:53%;
-
     left:50%;
 
     transform:
@@ -908,7 +839,8 @@ button{
 
     transition:
         opacity 1.5s ease,
-        transform 1.5s cubic-bezier(.16,1,.3,1);
+        transform 1.5s
+        cubic-bezier(.16,1,.3,1);
 }
 
 #finalMessage.show{
@@ -947,9 +879,8 @@ button{
     }
 }
 
-
 /* =====================================================
-   EXPLOSIÓN
+   PARTÍCULAS DEL REGALO
 ===================================================== */
 
 .explosionParticle{
@@ -994,7 +925,6 @@ button{
             scale(0);
     }
 }
-
 
 /* =====================================================
    RESPONSIVE
@@ -1046,9 +976,7 @@ button{
 </style>
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      UNIVERSO
@@ -1110,7 +1038,6 @@ button{
 
     </div>
 
-
     <div
         id="birthdayHeart"
         class="birthday-heart">
@@ -1118,7 +1045,6 @@ button{
         ❤️
 
     </div>
-
 
     <button
         id="touchButton"
@@ -1139,29 +1065,24 @@ button{
 
     <article class="letter">
 
-
         <div class="letter-heart">
             💖
         </div>
 
-
         <h1>
             Gracias por existir
         </h1>
-
 
         <p>
             Hoy es tu día y quiero detener un poquito el mundo
             para recordarte lo increíble y especial que eres para mí.
         </p>
 
-
         <p>
             Cada día a tu lado es un regalo, y aunque hoy la distancia
             nos separe un poco físicamente, quiero que sepas que mi
             corazón está ahí mismo contigo.
         </p>
-
 
         <p>
             Eres una persona increíble, inteligente, hermosa y
@@ -1170,13 +1091,11 @@ button{
             significas para mí.
         </p>
 
-
         <p>
             Espero que este nuevo año de vida venga lleno de sonrisas,
             sueños cumplidos, momentos inolvidables y muchísimas
             razones para ser feliz.
         </p>
-
 
         <p>
             Quiero que nunca olvides lo mucho que vales.
@@ -1185,12 +1104,10 @@ button{
             recuerda que siempre habrá alguien deseando verte feliz.
         </p>
 
-
         <p>
             Y si alguna vez dudas de lo importante que eres,
             recuerda esto:
         </p>
-
 
         <div class="quote">
 
@@ -1199,7 +1116,6 @@ button{
 
         </div>
 
-
         <div class="signature">
 
             Con todo mi amor,<br>
@@ -1207,16 +1123,13 @@ button{
 
         </div>
 
-
         <div class="final-hint">
 
             ↓ Sigue bajando hasta el final ↓
 
         </div>
 
-
     </article>
-
 
     <div id="finalTrigger"></div>
 
@@ -1224,7 +1137,7 @@ button{
 
 
 <!-- =====================================================
-     FINAL
+     PANTALLA FINAL
 ===================================================== -->
 
 <div id="finalScreen">
@@ -1323,21 +1236,18 @@ const finalTrigger =
    VARIABLES
 ===================================================== */
 
-let W=0;
-let H=0;
+let W = 0;
+let H = 0;
 
-let stars=[];
+let stars = [];
 
-let universeStarted=false;
+let universeStarted = false;
+let heartFormed = false;
+let heartClicked = false;
+let finalStarted = false;
 
-let heartFormed=false;
-
-let heartClicked=false;
-
-let finalStarted=false;
-
-let mobile=
-    window.innerWidth<600;
+let mobile =
+    window.innerWidth < 600;
 
 
 /* =====================================================
@@ -1346,16 +1256,16 @@ let mobile=
 
 function resize(){
 
-    W=
-        canvas.width=
+    W =
+        canvas.width =
         window.innerWidth;
 
-    H=
-        canvas.height=
+    H =
+        canvas.height =
         window.innerHeight;
 
-    mobile=
-        window.innerWidth<600;
+    mobile =
+        window.innerWidth < 600;
 }
 
 resize();
@@ -1367,7 +1277,7 @@ window.addEventListener(
 
 
 /* =====================================================
-   ABRIR REGALO
+   REGALO
 ===================================================== */
 
 giftButton.addEventListener(
@@ -1422,7 +1332,6 @@ touchButton.addEventListener(
     function(e){
 
         e.preventDefault();
-
         e.stopPropagation();
 
         startUniverse();
@@ -1435,7 +1344,6 @@ touchButton.addEventListener(
     function(e){
 
         e.preventDefault();
-
         e.stopPropagation();
 
     }
@@ -1451,9 +1359,9 @@ function startUniverse(){
     if(universeStarted)
         return;
 
-    universeStarted=true;
+    universeStarted = true;
 
-    touchButton.style.display=
+    touchButton.style.display =
         "none";
 
     birthdayScreen.classList.add(
@@ -1463,7 +1371,11 @@ function startUniverse(){
     setTimeout(
         () => {
 
-            canvas.style.opacity="1";
+            canvas.style.display =
+                "block";
+
+            canvas.style.opacity =
+                "1";
 
             createStars();
 
@@ -1487,19 +1399,19 @@ function startUniverse(){
 
 
 /* =====================================================
-   ESTRELLAS
+   CREAR ESTRELLAS
 ===================================================== */
 
 function createStars(){
 
-    stars=[];
+    stars = [];
 
-    const amount=
+    const amount =
         mobile
         ? 500
         : 1000;
 
-    const colors=[
+    const colors = [
         "#ffffff",
         "#ffffff",
         "#fff5b0",
@@ -1510,8 +1422,8 @@ function createStars(){
     ];
 
     for(
-        let i=0;
-        i<amount;
+        let i = 0;
+        i < amount;
         i++
     ){
 
@@ -1519,11 +1431,11 @@ function createStars(){
 
             x:
                 (Math.random()-.5)
-                *W*5,
+                * W * 5,
 
             y:
                 (Math.random()-.5)
-                *H*5,
+                * H * 5,
 
             z:
                 Math.random()*3+.15,
@@ -1538,13 +1450,13 @@ function createStars(){
                 colors[
                     Math.floor(
                         Math.random()
-                        *colors.length
+                        * colors.length
                     )
                 ],
 
             twinkle:
                 Math.random()
-                *Math.PI*2
+                * Math.PI * 2
 
         });
     }
@@ -1552,7 +1464,7 @@ function createStars(){
 
 
 /* =====================================================
-   LOOP UNIVERSO
+   ANIMACIÓN UNIVERSO
 ===================================================== */
 
 function universeLoop(){
@@ -1564,7 +1476,8 @@ function universeLoop(){
         universeLoop
     );
 
-    ctx.fillStyle="#000";
+    ctx.fillStyle =
+        "#000";
 
     ctx.fillRect(
         0,
@@ -1573,7 +1486,7 @@ function universeLoop(){
         H
     );
 
-    const bg=
+    const bg =
         ctx.createRadialGradient(
             W/2,
             H/2,
@@ -1598,7 +1511,8 @@ function universeLoop(){
         "#000"
     );
 
-    ctx.fillStyle=bg;
+    ctx.fillStyle =
+        bg;
 
     ctx.fillRect(
         0,
@@ -1607,8 +1521,8 @@ function universeLoop(){
         H
     );
 
-    const time=
-        Date.now()*.001;
+    const time =
+        Date.now() * .001;
 
     for(
         const s of stars
@@ -1624,32 +1538,31 @@ function universeLoop(){
             continue;
         }
 
-        s.z-=s.speed;
+        s.z -= s.speed;
 
-        if(s.z<.08){
+        if(s.z < .08){
 
-            s.z=
-                3+
-                Math.random();
+            s.z =
+                3 + Math.random();
 
-            s.x=
+            s.x =
                 (Math.random()-.5)
-                *W*5;
+                * W * 5;
 
-            s.y=
+            s.y =
                 (Math.random()-.5)
-                *H*5;
+                * H * 5;
         }
 
-        const k=
-            140/s.z;
+        const k =
+            140 / s.z;
 
-        const x=
-            s.x*k+
+        const x =
+            s.x*k +
             W/2;
 
-        const y=
-            s.y*k+
+        const y =
+            s.y*k +
             H/2;
 
         if(
@@ -1660,26 +1573,25 @@ function universeLoop(){
         )
             continue;
 
-        const twinkle=
+        const twinkle =
             Math.sin(
-                time+
-                s.twinkle
+                time+s.twinkle
             )*.5+.5;
 
-        const alpha=
-            .35+
+        const alpha =
+            .35 +
             twinkle*.65;
 
-        const size=
+        const size =
             Math.min(
                 s.size*k,
                 6
             );
 
-        ctx.globalAlpha=
+        ctx.globalAlpha =
             alpha;
 
-        ctx.fillStyle=
+        ctx.fillStyle =
             s.color;
 
         ctx.beginPath();
@@ -1687,30 +1599,34 @@ function universeLoop(){
         ctx.arc(
             x,
             y,
-            Math.max(size/2,.5),
+            Math.max(
+                size/2,
+                .5
+            ),
             0,
             Math.PI*2
         );
 
         ctx.fill();
 
-        ctx.globalAlpha=1;
+        ctx.globalAlpha =
+            1;
     }
 }
 
 
 /* =====================================================
-   CREAR CORAZÓN
+   CREAR CORAZÓN DE PARTÍCULAS
 ===================================================== */
 
 function createHeart(){
 
-    const amount=
+    const amount =
         mobile
         ? 250
         : 450;
 
-    const scale=
+    const scale =
         mobile
         ? W*.013
         : W*.0105;
@@ -1721,18 +1637,18 @@ function createHeart(){
         i++
     ){
 
-        const t=
+        const t =
             Math.random()
-            *Math.PI*2;
+            * Math.PI * 2;
 
-        const hx=
-            16*
+        const hx =
+            16 *
             Math.pow(
                 Math.sin(t),
                 3
             );
 
-        const hy=
+        const hy =
             -(
                 13*Math.cos(t)
                 -
@@ -1743,20 +1659,20 @@ function createHeart(){
                 Math.cos(4*t)
             );
 
-        let s=
+        let s =
             stars[i];
 
         if(!s){
 
-            s={
+            s = {
 
                 x:
                     (Math.random()-.5)
-                    *W*4,
+                    * W * 4,
 
                 y:
                     (Math.random()-.5)
-                    *H*4,
+                    * H * 4,
 
                 z:
                     Math.random()*2+.3,
@@ -1772,19 +1688,20 @@ function createHeart(){
             stars.push(s);
         }
 
-        s.heart=true;
+        s.heart = true;
 
-        s.targetX=
-            W/2+
+        s.targetX =
+            W/2 +
             hx*scale;
 
-        s.targetY=
-            H/2+
+        s.targetY =
+            H/2 +
             hy*scale;
 
-        s.color="#ff315f";
+        s.color =
+            "#ff315f";
 
-        s.size=
+        s.size =
             Math.random()*3+1;
     }
 
@@ -1793,9 +1710,13 @@ function createHeart(){
     setTimeout(
         () => {
 
-            heartFormed=true;
+            if(!universeStarted)
+                return;
 
-            canvas.style.pointerEvents=
+            heartFormed =
+                true;
+
+            canvas.style.pointerEvents =
                 "auto";
 
             canvas.addEventListener(
@@ -1811,7 +1732,7 @@ function createHeart(){
 
 
 /* =====================================================
-   MOVER CORAZÓN
+   MOVER PARTÍCULAS AL CORAZÓN
 ===================================================== */
 
 function moveHeartParticles(){
@@ -1829,46 +1750,50 @@ function moveHeartParticles(){
         if(!s.heart)
             continue;
 
-        const k=
+        const k =
             140/s.z;
 
-        const x=
-            s.x*k+
+        const x =
+            s.x*k +
             W/2;
 
-        const y=
-            s.y*k+
+        const y =
+            s.y*k +
             H/2;
 
-        const dx=
+        const dx =
             s.targetX-x;
 
-        const dy=
+        const dy =
             s.targetY-y;
 
-        const nx=
-            x+
-            dx*.055;
+        const nx =
+            x + dx*.055;
 
-        const ny=
-            y+
-            dy*.055;
+        const ny =
+            y + dy*.055;
 
-        s.x=
+        s.x =
             (nx-W/2)/k;
 
-        s.y=
+        s.y =
             (ny-H/2)/k;
     }
 
-    requestAnimationFrame(
-        moveHeartParticles
-    );
+    if(
+        universeStarted &&
+        !heartClicked
+    ){
+
+        requestAnimationFrame(
+            moveHeartParticles
+        );
+    }
 }
 
 
 /* =====================================================
-   PARTÍCULAS DEL CORAZÓN
+   DIBUJAR PARTÍCULA CORAZÓN
 ===================================================== */
 
 function drawHeartParticle(
@@ -1876,35 +1801,36 @@ function drawHeartParticle(
     time
 ){
 
-    const k=
+    const k =
         140/s.z;
 
-    const x=
-        s.x*k+
+    const x =
+        s.x*k +
         W/2;
 
-    const y=
-        s.y*k+
+    const y =
+        s.y*k +
         H/2;
 
-    const pulse=
+    const pulse =
         Math.sin(
-            time*4+
-            s.twinkle
+            time*4+s.twinkle
         )*.5+.5;
 
-    const size=
-        s.size+
+    const size =
+        s.size +
         pulse*1.2;
 
-    ctx.globalAlpha=.5;
+    ctx.globalAlpha =
+        .5;
 
-    ctx.fillStyle=
+    ctx.fillStyle =
         "#ff174f";
 
-    ctx.shadowBlur=15;
+    ctx.shadowBlur =
+        15;
 
-    ctx.shadowColor=
+    ctx.shadowColor =
         "#ff174f";
 
     ctx.beginPath();
@@ -1919,11 +1845,13 @@ function drawHeartParticle(
 
     ctx.fill();
 
-    ctx.globalAlpha=1;
+    ctx.globalAlpha =
+        1;
 
-    ctx.shadowBlur=0;
+    ctx.shadowBlur =
+        0;
 
-    ctx.fillStyle=
+    ctx.fillStyle =
         "#ff7191";
 
     ctx.beginPath();
@@ -1952,12 +1880,24 @@ function showLetter(){
     )
         return;
 
-    heartClicked=true;
+    heartClicked =
+        true;
 
-    canvas.style.opacity="0";
+    universeStarted =
+        false;
 
-    canvas.style.pointerEvents=
+    canvas.style.opacity =
+        "0";
+
+    canvas.style.pointerEvents =
         "none";
+
+    ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+    );
 
     setTimeout(
         () => {
@@ -1966,7 +1906,8 @@ function showLetter(){
                 "show"
             );
 
-            letterScreen.scrollTop=0;
+            letterScreen.scrollTop =
+                0;
 
         },
         800
@@ -1975,34 +1916,36 @@ function showLetter(){
 
 
 /* =====================================================
-   EXPLOSIÓN DEL REGALO
+   EXPLOSIÓN REGALO
 ===================================================== */
 
 function explode(element){
 
-    const rect=
+    const rect =
         element.getBoundingClientRect();
 
-    const startX=
-        rect.left+
+    const startX =
+        rect.left +
         rect.width/2;
 
-    const startY=
-        rect.top+
+    const startY =
+        rect.top +
         rect.height/2;
 
-    const amount=
+    const amount =
         mobile
         ? 90
         : 160;
 
-    const colors=[
+    const colors = [
+
         "#ffffff",
         "#ff174f",
         "#ff007f",
         "#ff4d88",
         "#ffe45e",
         "#72eaff"
+
     ];
 
     for(
@@ -2011,65 +1954,64 @@ function explode(element){
         i++
     ){
 
-        const p=
+        const p =
             document.createElement(
                 "div"
             );
 
-        p.className=
+        p.className =
             "explosionParticle";
 
-        const color=
+        const color =
             colors[
                 Math.floor(
                     Math.random()
-                    *colors.length
+                    * colors.length
                 )
             ];
 
-        p.style.background=
+        p.style.background =
             color;
 
-        p.style.color=
+        p.style.color =
             color;
 
-        p.style.left=
+        p.style.left =
             startX+"px";
 
-        p.style.top=
+        p.style.top =
             startY+"px";
 
-        const angle=
+        const angle =
             Math.random()
-            *Math.PI*2;
+            * Math.PI * 2;
 
-        const distance=
-            80+
-            Math.random()
-            *350;
+        const distance =
+            80 +
+            Math.random()*350;
 
         p.style.setProperty(
             "--x",
             Math.cos(angle)
-            *distance+
+            * distance +
             "px"
         );
 
         p.style.setProperty(
             "--y",
             Math.sin(angle)
-            *distance+
+            * distance +
             "px"
         );
 
-        const size=
-            3+
+        const size =
+            3 +
             Math.random()*8;
 
-        p.style.width=
+        p.style.width =
             size+"px";
 
-        p.style.height=
+        p.style.height =
             size+"px";
 
         document.body.appendChild(p);
@@ -2088,10 +2030,10 @@ function explode(element){
    DETECTAR FINAL DE CARTA
 ===================================================== */
 
-const finalObserver=
+const finalObserver =
     new IntersectionObserver(
 
-        (entries) => {
+        entries => {
 
             if(
                 entries[0].isIntersecting &&
@@ -2116,7 +2058,7 @@ finalObserver.observe(
 
 
 /* =====================================================
-   INICIAR FINAL
+   INICIAR FINAL — ARREGLADO
 ===================================================== */
 
 function startFinal(){
@@ -2124,33 +2066,128 @@ function startFinal(){
     if(finalStarted)
         return;
 
-    finalStarted=true;
+    finalStarted =
+        true;
 
-    letterScreen.style.pointerEvents=
-        "none";
+    /*
+       DETENER COMPLETAMENTE
+       EL UNIVERSO.
+    */
 
-    setTimeout(
-        () => {
+    universeStarted =
+        false;
 
-            letterScreen.style.opacity=
-                "0";
+    heartClicked =
+        true;
 
-        },
-        300
+    heartFormed =
+        false;
+
+
+    /*
+       Detener visualmente
+       el corazón HTML anterior.
+    */
+
+    birthdayHeart.classList.remove(
+        "show"
     );
 
+
+    /*
+       LIMPIAR COMPLETAMENTE
+       EL CANVAS.
+    */
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    canvas.style.opacity =
+        "0";
+
+    canvas.style.pointerEvents =
+        "none";
+
+
+    /*
+       Ocultar carta.
+    */
+
+    letterScreen.style.opacity =
+        "0";
+
+    letterScreen.style.pointerEvents =
+        "none";
+
+
     setTimeout(
         () => {
 
-            letterScreen.style.display=
+            letterScreen.style.display =
                 "none";
+
+
+            /*
+               LIMPIAR EL CANVAS
+               UNA SEGUNDA VEZ.
+            */
+
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            canvas.style.display =
+                "none";
+
+
+            /*
+               MOSTRAR FINAL LIMPIO.
+            */
 
             finalScreen.classList.add(
                 "show"
             );
 
+
             /*
                TE AMO aparece primero.
+            */
+
+            loveText.style.opacity =
+                "0";
+
+
+            loveText.style.transform =
+                "scale(.2)";
+
+
+            setTimeout(
+                () => {
+
+                    loveText.style.opacity =
+                        "1";
+
+                    loveText.style.transform =
+                        "scale(1)";
+
+                    loveText.style.animation =
+                        "loveAppear 1.2s cubic-bezier(.16,1,.3,1) forwards";
+
+                },
+                100
+            );
+
+
+            /*
+               Después de 3.2 segundos
+               TE AMO se desintegra.
             */
 
             setTimeout(
@@ -2159,11 +2196,11 @@ function startFinal(){
                     destroyLove();
 
                 },
-                3000
+                3200
             );
 
         },
-        1000
+        900
     );
 }
 
@@ -2177,17 +2214,13 @@ function destroyLove(){
     const rect =
         loveText.getBoundingClientRect();
 
+    /*
+       Desaparece el texto.
+    */
+
     loveText.style.opacity =
         "0";
 
-    canvas.style.zIndex =
-        "250";
-
-    canvas.style.opacity =
-        "1";
-
-    canvas.style.pointerEvents =
-        "none";
 
     const particles = [];
 
@@ -2198,13 +2231,13 @@ function destroyLove(){
 
 
     /*
-       Las partículas nacen
-       desde el TE AMO.
+       Crear partículas desde
+       el área del TE AMO.
     */
 
     for(
-        let i = 0;
-        i < amount;
+        let i=0;
+        i<amount;
         i++
     ){
 
@@ -2219,18 +2252,17 @@ function destroyLove(){
             rect.height;
 
         const angle =
-            Math.random() *
-            Math.PI *
-            2;
+            Math.random()
+            * Math.PI * 2;
 
         /*
-           EXPANSIÓN GRANDE.
+           FUERZA GRANDE
+           para que se expandan.
         */
 
         const force =
             2 +
-            Math.random() *
-            9;
+            Math.random()*9;
 
         particles.push({
 
@@ -2240,26 +2272,24 @@ function destroyLove(){
 
             vx:
                 Math.cos(angle)
-                * force,
+                *force,
 
             vy:
                 Math.sin(angle)
-                * force,
+                *force,
 
             size:
-                Math.random() *
-                3.5
-                + .6,
+                Math.random()*3.5+.6,
 
             life:1,
 
             decay:
                 .0018 +
-                Math.random() *
-                .003,
+                Math.random()*.003,
 
             color:
                 randomLoveColor()
+
         });
     }
 
@@ -2271,9 +2301,12 @@ function destroyLove(){
     function expandParticles(now){
 
         const elapsed =
-            now -
-            startTime;
+            now-startTime;
 
+
+        /*
+           Fondo negro.
+        */
 
         ctx.fillStyle =
             "rgba(0,0,0,.20)";
@@ -2285,6 +2318,10 @@ function destroyLove(){
             H
         );
 
+
+        /*
+           Mover partículas.
+        */
 
         for(
             const p of particles
@@ -2338,9 +2375,11 @@ function destroyLove(){
         }
 
 
-        ctx.globalAlpha=1;
+        ctx.globalAlpha =
+            1;
 
-        ctx.shadowBlur=0;
+        ctx.shadowBlur =
+            0;
 
 
         /*
@@ -2379,19 +2418,12 @@ function randomLoveColor(){
     const colors = [
 
         "#ffffff",
-
         "#fff5fa",
-
         "#ffd6e7",
-
         "#ff9fc3",
-
         "#ff4f91",
-
         "#ff1768",
-
         "#ff77aa",
-
         "#e9b7ff"
 
     ];
@@ -2399,24 +2431,26 @@ function randomLoveColor(){
     return colors[
         Math.floor(
             Math.random()
-            * colors.length
+            *colors.length
         )
     ];
 }
 
 
 /* =====================================================
-   DESVANECIMIENTO DE PARTÍCULAS
+   DESVANECER PARTÍCULAS
 ===================================================== */
 
 function fadeParticles(){
 
-    let opacity=1;
+    let opacity =
+        1;
 
 
     function fade(){
 
-        opacity-=.015;
+        opacity -=
+            .015;
 
 
         ctx.fillStyle =
@@ -2431,7 +2465,7 @@ function fadeParticles(){
 
 
         if(
-            opacity>0
+            opacity > 0
         ){
 
             requestAnimationFrame(
@@ -2440,6 +2474,10 @@ function fadeParticles(){
 
         }else{
 
+            /*
+               LIMPIEZA TOTAL.
+            */
+
             ctx.clearRect(
                 0,
                 0,
@@ -2447,14 +2485,32 @@ function fadeParticles(){
                 H
             );
 
-            canvas.style.opacity=
+            /*
+               Ocultar canvas.
+            */
+
+            canvas.style.opacity =
                 "0";
+
+            canvas.style.display =
+                "none";
 
 
             /*
-               ==========================================
-               AQUÍ COMIENZA EL NUEVO FINAL
-               ==========================================
+               Asegurarnos de que
+               no quede ningún dibujo.
+            */
+
+            ctx.clearRect(
+                0,
+                0,
+                W,
+                H
+            );
+
+
+            /*
+               Mostrar 25 DE AGOSTO.
             */
 
             showDate();
@@ -2475,15 +2531,54 @@ function fadeParticles(){
 
 function showDate(){
 
+    /*
+       Ocultar completamente TE AMO.
+    */
+
+    loveText.style.display =
+        "none";
+
+
+    /*
+       Asegurar fondo negro.
+    */
+
+    finalScreen.style.background =
+        "#000";
+
+
+    /*
+       MUY IMPORTANTE:
+       ningún canvas visible.
+    */
+
+    canvas.style.display =
+        "none";
+
+    canvas.style.opacity =
+        "0";
+
+
+    ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    /*
+       Mostrar fecha.
+    */
+
     dateText.classList.add(
         "show"
     );
 
 
     /*
-       Después de mostrar
-       25 DE AGOSTO,
-       aparece el mensaje final.
+       Después aparece
+       el mensaje final.
     */
 
     setTimeout(
@@ -2492,6 +2587,7 @@ function showDate(){
             dateText.classList.remove(
                 "show"
             );
+
 
             setTimeout(
                 () => {
