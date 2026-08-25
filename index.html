@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,13 +19,13 @@ html,body{
     height:100%;
     overflow:hidden;
     background:#000;
-    color:white;
+    color:#fff;
     font-family:'Poppins',sans-serif;
 }
 
-/* =========================================================
-   CANVAS
-========================================================= */
+button{
+    font-family:inherit;
+}
 
 #universeCanvas{
     position:fixed;
@@ -40,33 +39,23 @@ html,body{
     background:#000;
 }
 
-/* =========================================================
-   PANTALLAS
-========================================================= */
-
 .screen{
     position:fixed;
     inset:0;
     z-index:10;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     padding:20px;
-
-    transition:
-        opacity .8s ease,
-        transform .8s ease;
-
     flex-direction:column;
     text-align:center;
+    transition:opacity .8s ease,transform .8s ease;
 }
 
 .hidden{
-    opacity:0 !important;
-    pointer-events:none !important;
-    transform:scale(.95);
+    opacity:0!important;
+    pointer-events:none!important;
+    transform:scale(.96);
 }
 
 /* =========================================================
@@ -77,7 +66,7 @@ html,body{
     background:
         radial-gradient(
             circle at center,
-            rgba(255,20,100,.12),
+            rgba(255,20,100,.13),
             transparent 60%
         );
 }
@@ -86,9 +75,7 @@ html,body{
     font-family:'Cinzel',serif;
     font-size:clamp(2.2rem,8vw,4.5rem);
     color:#fff;
-
     margin-bottom:5px;
-
     text-shadow:
         0 0 10px #fff,
         0 0 20px #ff007f,
@@ -104,16 +91,12 @@ html,body{
 .gift{
     border:none;
     background:transparent;
-
     font-size:clamp(9rem,35vw,15rem);
-
     cursor:pointer;
     user-select:none;
-
     animation:
         giftFloat 3s ease-in-out infinite,
         giftGlow 2s ease-in-out infinite alternate;
-
     transition:transform .3s ease;
 }
 
@@ -129,7 +112,6 @@ html,body{
     0%,100%{
         transform:translateY(0) rotate(-2deg);
     }
-
     50%{
         transform:translateY(-20px) rotate(2deg);
     }
@@ -139,7 +121,6 @@ html,body{
     from{
         filter:drop-shadow(0 0 15px rgba(255,50,130,.7));
     }
-
     to{
         filter:drop-shadow(0 0 35px #ff007f);
     }
@@ -149,7 +130,6 @@ html,body{
     margin-top:15px;
     color:rgba(255,255,255,.6);
     font-size:1rem;
-
     animation:blink 2s ease-in-out infinite;
 }
 
@@ -166,38 +146,38 @@ html,body{
     background:
         radial-gradient(
             circle at center,
-            rgba(255,255,255,.04),
+            rgba(255,255,255,.05),
             transparent 65%
         );
 
-    pointer-events:none;
+    /*
+       MUY IMPORTANTE:
+       antes estaba en pointer-events:none
+       y por eso el botón no funcionaba.
+    */
+    pointer-events:auto;
 }
 
 .led-wrapper{
     position:absolute;
     top:40%;
     transform:translateY(-50%);
-
     width:100%;
-
     display:flex;
     justify-content:center;
     align-items:center;
+    pointer-events:none;
 }
 
 .led-text{
     font-family:'Cinzel',serif;
-
     font-size:clamp(2.5rem,10vw,8rem);
-
     font-weight:700;
     color:#fff;
-
     text-shadow:
         0 0 10px #fff,
         0 0 30px #fff,
         0 0 50px #fff;
-
     opacity:0;
     transform:scale(.5);
 }
@@ -209,16 +189,13 @@ html,body{
 }
 
 @keyframes birthdayPop{
-
     0%{
         opacity:0;
         transform:scale(.5) translateY(30px);
     }
-
     60%{
         transform:scale(1.1) translateY(-5px);
     }
-
     100%{
         opacity:1;
         transform:scale(1) translateY(0);
@@ -226,14 +203,12 @@ html,body{
 }
 
 @keyframes glowPulse{
-
     0%,100%{
         text-shadow:
             0 0 10px #fff,
             0 0 30px #fff,
             0 0 50px #fff;
     }
-
     50%{
         text-shadow:
             0 0 15px #fff,
@@ -245,13 +220,11 @@ html,body{
 .birthday-heart{
     position:absolute;
     top:52%;
-
     font-size:clamp(6rem,25vw,12rem);
-
     opacity:0;
     transform:scale(.2);
-
     filter:drop-shadow(0 0 20px #ff174f);
+    pointer-events:none;
 }
 
 .birthday-heart.show{
@@ -261,17 +234,14 @@ html,body{
 }
 
 @keyframes heartAppear{
-
     0%{
         opacity:0;
         transform:scale(.2);
     }
-
     60%{
         opacity:1;
         transform:scale(1.15);
     }
-
     100%{
         opacity:1;
         transform:scale(1);
@@ -279,66 +249,75 @@ html,body{
 }
 
 @keyframes heartPulse{
-
     0%,100%{
         transform:scale(1);
     }
-
     50%{
         transform:scale(1.08);
     }
 }
 
 /* =========================================================
-   BOTÓN BLANCO
+   BOTÓN TOCA AQUÍ
 ========================================================= */
 
 .touch-message{
-
     position:absolute;
     bottom:12%;
+    z-index:30;
 
     opacity:0;
 
-    font-size:clamp(1.1rem,5vw,1.6rem);
-
-    font-weight:800;
-
-    color:#000;
-
-    cursor:pointer;
-
-    padding:15px 40px;
+    padding:15px 42px;
 
     border-radius:50px;
 
+    border:2px solid #fff;
+
     background:#fff;
 
-    border:2px solid rgba(255,255,255,.9);
+    color:#000;
+
+    font-size:clamp(1.1rem,5vw,1.6rem);
+    font-weight:800;
+
+    cursor:pointer;
+
+    pointer-events:auto;
+
+    touch-action:manipulation;
+
+    -webkit-tap-highlight-color:transparent;
 
     box-shadow:
-        0 0 15px rgba(255,255,255,.7),
-        0 0 40px rgba(255,255,255,.3);
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease,
-        background .3s ease;
+        0 0 15px rgba(255,255,255,.8),
+        0 0 35px rgba(255,255,255,.35);
 
     animation:
         touchAppear 1s ease forwards 3s,
         whitePulse 1.8s infinite 4s;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 .touch-message:hover{
     transform:scale(1.08);
-    background:#fff;
     box-shadow:
         0 0 25px #fff,
-        0 0 60px rgba(255,255,255,.5);
+        0 0 70px rgba(255,255,255,.5);
+}
+
+.touch-message:active{
+    transform:scale(.94);
 }
 
 @keyframes touchAppear{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
     to{
         opacity:1;
         transform:translateY(0);
@@ -346,13 +325,11 @@ html,body{
 }
 
 @keyframes whitePulse{
-
     0%,100%{
         box-shadow:
             0 0 15px rgba(255,255,255,.7),
             0 0 40px rgba(255,255,255,.2);
     }
-
     50%{
         box-shadow:
             0 0 25px #fff,
@@ -361,17 +338,15 @@ html,body{
 }
 
 /* =========================================================
-   CARTA DE AMOR
+   CARTA
 ========================================================= */
 
 #letterScreen{
-
     opacity:0;
     pointer-events:none;
-
     overflow-y:auto;
 
-    padding:70px 25px 100px;
+    padding:70px 25px 120px;
 
     align-items:center;
 
@@ -383,8 +358,6 @@ html,body{
         ),
         #020203;
 
-    backdrop-filter:blur(5px);
-
     -webkit-overflow-scrolling:touch;
 }
 
@@ -394,13 +367,12 @@ html,body{
 }
 
 .letter{
-
     width:min(800px,94vw);
 
     padding:
         clamp(30px,7vw,75px)
         clamp(25px,7vw,70px)
-        120px;
+        100px;
 
     position:relative;
 
@@ -408,10 +380,9 @@ html,body{
         letterAppear 1.4s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-/* Línea decorativa */
-
 .letter::before{
     content:"";
+
     position:absolute;
 
     left:10%;
@@ -445,7 +416,6 @@ html,body{
 }
 
 .letter h1{
-
     font-family:'Cinzel',serif;
 
     font-size:clamp(2rem,7.5vw,3.6rem);
@@ -461,7 +431,6 @@ html,body{
 }
 
 .letter p{
-
     font-size:clamp(1.05rem,3.2vw,1.25rem);
 
     line-height:2;
@@ -471,12 +440,9 @@ html,body{
     margin-bottom:28px;
 
     text-align:left;
-
-    font-weight:400;
 }
 
 .quote{
-
     margin-top:45px;
 
     padding-top:30px;
@@ -492,16 +458,15 @@ html,body{
 
     line-height:1.8;
 
+    text-align:center;
+
     text-shadow:
         0 0 15px rgba(255,70,140,.5);
 
     font-weight:700;
-
-    text-align:center;
 }
 
 .signature{
-
     margin-top:45px;
 
     font-family:'Cinzel',serif;
@@ -516,39 +481,10 @@ html,body{
         0 0 15px #ff4f8b;
 }
 
-@keyframes letterAppear{
-
-    0%{
-        opacity:0;
-        transform:translateY(50px);
-    }
-
-    100%{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-@keyframes letterHeartPulse{
-
-    0%,100%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.1);
-    }
-}
-
-/* =========================================================
-   INDICADOR FINAL
-========================================================= */
-
 .final-hint{
+    margin-top:65px;
 
     text-align:center;
-
-    margin-top:60px;
 
     color:rgba(255,255,255,.45);
 
@@ -557,20 +493,37 @@ html,body{
     animation:blink 2s infinite;
 }
 
+@keyframes letterAppear{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes letterHeartPulse{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.1);
+    }
+}
+
 /* =========================================================
    TE AMO
 ========================================================= */
 
 #loveFinal{
-
     position:fixed;
-
     inset:0;
 
     z-index:50;
 
     display:flex;
-
     justify-content:center;
     align-items:center;
 
@@ -583,8 +536,8 @@ html,body{
     background:
         radial-gradient(
             circle at center,
-            rgba(255,0,90,.05),
-            transparent 50%
+            rgba(255,0,90,.06),
+            transparent 55%
         );
 }
 
@@ -593,7 +546,6 @@ html,body{
 }
 
 #loveText{
-
     font-family:'Cinzel',serif;
 
     font-size:clamp(4rem,18vw,12rem);
@@ -602,9 +554,9 @@ html,body{
 
     color:white;
 
-    letter-spacing:.05em;
-
     text-align:center;
+
+    letter-spacing:.04em;
 
     text-shadow:
         0 0 10px #fff,
@@ -612,13 +564,12 @@ html,body{
         0 0 70px #ff0055,
         0 0 120px #ff0055;
 
-    transform:scale(.2);
-
     opacity:0;
+
+    transform:scale(.2);
 }
 
 #loveFinal.show #loveText{
-
     animation:
         loveEntrance 1.2s
         cubic-bezier(.16,1,.3,1)
@@ -626,17 +577,14 @@ html,body{
 }
 
 @keyframes loveEntrance{
-
     0%{
         opacity:0;
         transform:scale(.2) translateY(80px);
     }
-
     60%{
         opacity:1;
         transform:scale(1.15) translateY(-10px);
     }
-
     100%{
         opacity:1;
         transform:scale(1) translateY(0);
@@ -644,11 +592,10 @@ html,body{
 }
 
 /* =========================================================
-   PARTÍCULAS DE EXPLOSIÓN
+   PARTÍCULAS
 ========================================================= */
 
 .particle{
-
     position:fixed;
 
     width:8px;
@@ -667,22 +614,19 @@ html,body{
         0 0 12px currentColor;
 
     animation:
-        particleExplosion 1.8s
+        particleExplosion
+        1.8s
         cubic-bezier(.12,.75,.25,1)
         forwards;
 }
 
 @keyframes particleExplosion{
-
     0%{
-        transform:
-            translate3d(0,0,0)
-            scale(1);
-
+        transform:translate3d(0,0,0) scale(1);
         opacity:1;
     }
 
-    60%{
+    55%{
         opacity:1;
     }
 
@@ -694,10 +638,6 @@ html,body{
         opacity:0;
     }
 }
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
 
 @media(max-width:600px){
 
@@ -720,21 +660,22 @@ html,body{
     #loveText{
         font-size:22vw;
     }
+
+    .touch-message{
+        bottom:10%;
+        padding:14px 35px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =======================================================
-     UNIVERSO
-======================================================= -->
-
 <canvas id="universeCanvas"></canvas>
 
 
 <!-- =======================================================
-     PANTALLA DEL REGALO
+     REGALO
 ======================================================= -->
 
 <section id="giftScreen" class="screen">
@@ -762,17 +703,15 @@ html,body{
 
 
 <!-- =======================================================
-     CUMPLEAÑOS
+     FELIZ CUMPLEAÑOS
 ======================================================= -->
 
 <section id="birthdayScreen" class="screen hidden">
 
     <div class="led-wrapper">
-
         <div id="ledText" class="led-text">
             FELIZ CUMPLEAÑOS
         </div>
-
     </div>
 
     <div id="birthdayHeart" class="birthday-heart">
@@ -782,9 +721,7 @@ html,body{
     <button
         id="touchButton"
         class="touch-message">
-
         TOCA AQUÍ
-
     </button>
 
 </section>
@@ -843,17 +780,13 @@ html,body{
         </p>
 
         <div class="quote">
-
             “Entre tantos mundos, tantas galaxias y tantas estrellas...
             mi coincidencia favorita sigues siendo tú.” 🌌🤍
-
         </div>
 
         <div class="signature">
-
             Con todo mi amor,<br>
             para ti ❤️
-
         </div>
 
         <div class="final-hint">
@@ -866,7 +799,7 @@ html,body{
 
 
 <!-- =======================================================
-     SUPER MEGA FINAL
+     FINAL
 ======================================================= -->
 
 <div id="loveFinal">
@@ -909,9 +842,7 @@ const canvas =
     document.getElementById("universeCanvas");
 
 const ctx =
-    canvas.getContext("2d", {
-        alpha:false
-    });
+    canvas.getContext("2d");
 
 const loveFinal =
     document.getElementById("loveFinal");
@@ -924,8 +855,8 @@ const loveText =
    VARIABLES
 ========================================================= */
 
-let width;
-let height;
+let width = 0;
+let height = 0;
 
 let stars = [];
 
@@ -936,7 +867,7 @@ let heartClicked = false;
 let finalStarted = false;
 let galaxyMode = false;
 
-const isMobile =
+let isMobile =
     window.innerWidth < 600;
 
 
@@ -954,9 +885,8 @@ function resizeCanvas(){
         canvas.height =
         window.innerHeight;
 
-    ctx.setTransform(
-        1,0,0,1,0,0
-    );
+    isMobile =
+        window.innerWidth < 600;
 }
 
 resizeCanvas();
@@ -977,8 +907,6 @@ giftButton.addEventListener(
 );
 
 function openGift(){
-
-    /* EXPLOSIÓN CORREGIDA */
 
     createExplosion(
         giftButton
@@ -1026,13 +954,41 @@ function startBirthdaySequence(){
 
 
 /* =========================================================
-   UNIVERSO
+   BOTÓN TOCA AQUÍ
+   PC + CELULAR
 ========================================================= */
 
 touchButton.addEventListener(
     "click",
-    startUniverse
+    function(e){
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        startUniverse();
+
+    }
 );
+
+touchButton.addEventListener(
+    "touchend",
+    function(e){
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        startUniverse();
+
+    },
+    {
+        passive:false
+    }
+);
+
+
+/* =========================================================
+   UNIVERSO
+========================================================= */
 
 function startUniverse(){
 
@@ -1040,6 +996,11 @@ function startUniverse(){
         return;
 
     universeStarted = true;
+
+    touchButton.disabled = true;
+
+    touchButton.style.pointerEvents =
+        "none";
 
     birthdayScreen.classList.add(
         "hidden"
@@ -1064,7 +1025,7 @@ function startUniverse(){
 
 
 /* =========================================================
-   CREAR ESTRELLAS 3D
+   ESTRELLAS
 ========================================================= */
 
 function createUniverseStars(){
@@ -1075,7 +1036,6 @@ function createUniverseStars(){
         isMobile ? 550 : 1200;
 
     const colors = [
-
         "#ffffff",
         "#ffffff",
         "#fff9b0",
@@ -1084,7 +1044,6 @@ function createUniverseStars(){
         "#3fa9ff",
         "#b9f2ff",
         "#ffb3e6"
-
     ];
 
 
@@ -1098,11 +1057,11 @@ function createUniverseStars(){
 
             x:
                 (Math.random()-.5)
-                * width * 5,
+                *width*5,
 
             y:
                 (Math.random()-.5)
-                * height * 5,
+                *height*5,
 
             z:
                 Math.random()*2.5+.15,
@@ -1115,8 +1074,7 @@ function createUniverseStars(){
             color:
                 colors[
                     Math.floor(
-                        Math.random()
-                        * colors.length
+                        Math.random()*colors.length
                     )
                 ],
 
@@ -1126,8 +1084,7 @@ function createUniverseStars(){
                 : Math.random()*.025+.006,
 
             twinkle:
-                Math.random()
-                *Math.PI*2
+                Math.random()*Math.PI*2
 
         });
 
@@ -1136,7 +1093,7 @@ function createUniverseStars(){
 
 
 /* =========================================================
-   ANIMACIÓN UNIVERSO
+   ANIMAR UNIVERSO
 ========================================================= */
 
 function animateUniverse(){
@@ -1159,8 +1116,6 @@ function animateUniverse(){
     );
 
 
-    /* Fondo */
-
     const gradient =
         ctx.createRadialGradient(
             width/2,
@@ -1173,17 +1128,17 @@ function animateUniverse(){
 
     gradient.addColorStop(
         0,
-        "#050b20"
+        "#07112d"
     );
 
     gradient.addColorStop(
-        .35,
-        "#020611"
+        .4,
+        "#020714"
     );
 
     gradient.addColorStop(
         1,
-        "#000000"
+        "#000"
     );
 
     ctx.fillStyle =
@@ -1198,7 +1153,7 @@ function animateUniverse(){
 
 
     const time =
-        Date.now()*0.001;
+        Date.now()*.001;
 
 
     stars.forEach(star => {
@@ -1230,34 +1185,33 @@ function animateUniverse(){
         }
 
 
-        /* MOVIMIENTO 3D */
-
         star.z -= star.speed;
 
 
         const k =
-            140 / star.z;
+            140/star.z;
 
 
         const px =
-            star.x*k +
+            star.x*k+
             width/2;
 
+
         const py =
-            star.y*k +
+            star.y*k+
             height/2;
 
 
         if(
-            star.z < .08 ||
-            px < -50 ||
-            px > width+50 ||
-            py < -50 ||
-            py > height+50
+            star.z<.08 ||
+            px<-50 ||
+            px>width+50 ||
+            py<-50 ||
+            py>height+50
         ){
 
             star.z =
-                2.5 +
+                2.5+
                 Math.random();
 
             star.x =
@@ -1280,25 +1234,18 @@ function animateUniverse(){
 
 
         const opacity =
-            twinkle*.7+.3;
+            .35+
+            twinkle*.65;
 
 
-        let currentSize =
+        let size =
             star.size*k;
 
-
-        currentSize =
-            Math.min(
-                currentSize,
-                7
-            );
+        size =
+            Math.min(size,7);
 
 
-        /* BRILLO */
-
-        if(currentSize>2){
-
-            ctx.beginPath();
+        if(size>2){
 
             const glow =
                 ctx.createRadialGradient(
@@ -1307,7 +1254,7 @@ function animateUniverse(){
                     0,
                     px,
                     py,
-                    currentSize*3
+                    size*4
                 );
 
             glow.addColorStop(
@@ -1326,10 +1273,12 @@ function animateUniverse(){
             ctx.fillStyle =
                 glow;
 
+            ctx.beginPath();
+
             ctx.arc(
                 px,
                 py,
-                currentSize*3,
+                size*4,
                 0,
                 Math.PI*2
             );
@@ -1340,22 +1289,19 @@ function animateUniverse(){
 
         ctx.beginPath();
 
-        ctx.arc(
-            px,
-            py,
-            Math.max(
-                currentSize/2,
-                .4
-            ),
-            0,
-            Math.PI*2
-        );
-
         ctx.globalAlpha =
             opacity;
 
         ctx.fillStyle =
             star.color;
+
+        ctx.arc(
+            px,
+            py,
+            Math.max(size/2,.4),
+            0,
+            Math.PI*2
+        );
 
         ctx.fill();
 
@@ -1366,7 +1312,7 @@ function animateUniverse(){
 
 
 /* =========================================================
-   FORMAR CORAZÓN
+   CORAZÓN
 ========================================================= */
 
 function formHeart(){
@@ -1374,7 +1320,7 @@ function formHeart(){
     const amount =
         isMobile ? 260 : 520;
 
-    const heartPoints=[];
+    const points=[];
 
     const scale =
         isMobile
@@ -1389,8 +1335,7 @@ function formHeart(){
     ){
 
         const t =
-            Math.random()
-            *Math.PI*2;
+            Math.random()*Math.PI*2;
 
 
         const x =
@@ -1413,7 +1358,7 @@ function formHeart(){
             );
 
 
-        heartPoints.push({
+        points.push({
 
             x:
                 x*scale+
@@ -1465,10 +1410,10 @@ function formHeart(){
         stars[i].isHeartParticle=true;
 
         stars[i].targetX =
-            heartPoints[i].x;
+            points[i].x;
 
         stars[i].targetY =
-            heartPoints[i].y;
+            points[i].y;
 
         stars[i].color =
             "#ff305f";
@@ -1507,7 +1452,7 @@ function formHeart(){
 
 
 /* =========================================================
-   MOVER PARTÍCULAS AL CORAZÓN
+   MOVER CORAZÓN
 ========================================================= */
 
 function moveParticlesToHeart(){
@@ -1529,41 +1474,39 @@ function moveParticlesToHeart(){
             140/star.z;
 
 
-        const currentPx =
+        const px =
             star.x*k+
             width/2;
 
 
-        const currentPy =
+        const py =
             star.y*k+
             height/2;
 
 
         const dx =
-            star.targetX -
-            currentPx;
+            star.targetX-px;
 
 
         const dy =
-            star.targetY -
-            currentPy;
+            star.targetY-py;
 
 
-        const newPx =
-            currentPx+
+        const newX =
+            px+
             dx*.065;
 
 
-        const newPy =
-            currentPy+
+        const newY =
+            py+
             dy*.065;
 
 
         star.x =
-            (newPx-width/2)/k;
+            (newX-width/2)/k;
 
         star.y =
-            (newPy-height/2)/k;
+            (newY-height/2)/k;
 
     });
 
@@ -1609,8 +1552,6 @@ function drawHeartParticle(
         pulse*1.5;
 
 
-    ctx.beginPath();
-
     const glow =
         ctx.createRadialGradient(
             px,
@@ -1620,6 +1561,7 @@ function drawHeartParticle(
             py,
             size*4
         );
+
 
     glow.addColorStop(
         0,
@@ -1636,9 +1578,12 @@ function drawHeartParticle(
         "transparent"
     );
 
-    ctx.fillStyle=glow;
 
     ctx.globalAlpha=.7;
+
+    ctx.fillStyle=glow;
+
+    ctx.beginPath();
 
     ctx.arc(
         px,
@@ -1651,12 +1596,11 @@ function drawHeartParticle(
     ctx.fill();
 
 
-    ctx.beginPath();
-
-    ctx.fillStyle=
-        "#ff4f79";
-
     ctx.globalAlpha=1;
+
+    ctx.fillStyle="#ff4f79";
+
+    ctx.beginPath();
 
     ctx.arc(
         px,
@@ -1667,12 +1611,11 @@ function drawHeartParticle(
     );
 
     ctx.fill();
-
 }
 
 
 /* =========================================================
-   MOSTRAR CARTA
+   CARTA
 ========================================================= */
 
 function showLetter(){
@@ -1702,7 +1645,7 @@ function showLetter(){
 
 
 /* =========================================================
-   EXPLOSIÓN INICIAL CORREGIDA
+   EXPLOSIÓN DEL REGALO
 ========================================================= */
 
 function createExplosion(
@@ -1713,31 +1656,29 @@ function createExplosion(
         element.getBoundingClientRect();
 
 
-    const centerX =
+    const x =
         rect.left+
         rect.width/2;
 
 
-    const centerY =
+    const y =
         rect.top+
         rect.height/2;
 
 
     const amount =
         isMobile
-        ? 90
+        ? 100
         : 180;
 
 
     const colors=[
-
         "#ffffff",
         "#ff174f",
         "#ff007f",
         "#ff4f8b",
         "#4ddfff",
         "#ffe45e"
-
     ];
 
 
@@ -1747,98 +1688,66 @@ function createExplosion(
         i++
     ){
 
-        const particle =
+        const p =
             document.createElement(
                 "div"
             );
 
 
-        particle.className=
-            "particle";
+        p.className="particle";
 
 
         const color =
             colors[
                 Math.floor(
-                    Math.random()
-                    *colors.length
+                    Math.random()*colors.length
                 )
             ];
 
 
-        particle.style.background=
-            color;
+        p.style.background=color;
+        p.style.color=color;
 
-        particle.style.color=
-            color;
+        p.style.left=x+"px";
+        p.style.top=y+"px";
 
-
-        particle.style.left=
-            centerX+"px";
-
-        particle.style.top=
-            centerY+"px";
-
-
-        /* DIRECCIÓN ALEATORIA */
 
         const angle =
-            Math.random()
-            *Math.PI*2;
+            Math.random()*Math.PI*2;
 
 
         const radius =
             isMobile
-            ? 80+
-              Math.random()*220
-            : 100+
-              Math.random()*350;
+            ? 80+Math.random()*220
+            : 100+Math.random()*350;
 
 
-        particle.style.setProperty(
+        p.style.setProperty(
             "--x",
-            Math.cos(angle)
-            *radius+
-            "px"
+            Math.cos(angle)*radius+"px"
         );
 
-
-        particle.style.setProperty(
+        p.style.setProperty(
             "--y",
-            Math.sin(angle)
-            *radius+
-            "px"
+            Math.sin(angle)*radius+"px"
         );
 
 
         const size =
             isMobile
-            ? 3+
-              Math.random()*6
-            : 4+
-              Math.random()*9;
+            ? 3+Math.random()*6
+            : 4+Math.random()*9;
 
 
-        particle.style.width=
-            size+"px";
-
-        particle.style.height=
-            size+"px";
+        p.style.width=size+"px";
+        p.style.height=size+"px";
 
 
-        /* IMPORTANTE:
-           se agrega al body ANTES
-           de comenzar la animación */
-
-        document.body.appendChild(
-            particle
-        );
+        document.body.appendChild(p);
 
 
         setTimeout(() => {
-
-            particle.remove();
-
+            p.remove();
         },1900);
 
     }
@@ -1849,81 +1758,32 @@ function createExplosion(
    DETECTAR FINAL DE LA CARTA
 ========================================================= */
 
-let scrollTimeout;
-
 letterScreen.addEventListener(
     "scroll",
-    () => {
-
-        clearTimeout(
-            scrollTimeout
-        );
+    checkLetterEnd
+);
 
 
-        scrollTimeout =
-            setTimeout(() => {
+function checkLetterEnd(){
 
-                const distanceFromBottom =
-                    letterScreen.scrollHeight
-                    -
-                    letterScreen.scrollTop
-                    -
-                    letterScreen.clientHeight;
+    const distance =
+        letterScreen.scrollHeight
+        -
+        letterScreen.scrollTop
+        -
+        letterScreen.clientHeight;
 
 
-                /*
-                   Cuando faltan menos de
-                   80px para llegar abajo,
-                   comienza el final.
-                */
+    if(distance<100){
 
-                if(
-                    distanceFromBottom < 80
-                ){
-
-                    startMegaFinal();
-
-                }
-
-            },100);
+        startMegaFinal();
 
     }
-);
+}
 
 
 /* =========================================================
-   TAMBIÉN DETECTAR WHEEL / TOUCH
-========================================================= */
-
-letterScreen.addEventListener(
-    "touchend",
-    () => {
-
-        setTimeout(() => {
-
-            const distance =
-                letterScreen.scrollHeight
-                -
-                letterScreen.scrollTop
-                -
-                letterScreen.clientHeight;
-
-
-            if(distance<100){
-
-                startMegaFinal();
-
-            }
-
-        },300);
-
-    },
-    {passive:true}
-);
-
-
-/* =========================================================
-   SUPER MEGA FINAL
+   FINAL
 ========================================================= */
 
 function startMegaFinal(){
@@ -1931,15 +1791,9 @@ function startMegaFinal(){
     if(finalStarted)
         return;
 
+
     finalStarted=true;
 
-
-    /*
-       Sacamos la carta lentamente
-    */
-
-    letterScreen.style.transition=
-        "opacity 1.2s ease";
 
     letterScreen.style.opacity="0";
 
@@ -1949,105 +1803,73 @@ function startMegaFinal(){
         letterScreen.style.pointerEvents=
             "none";
 
-
         loveFinal.classList.add(
             "show"
         );
 
 
-        /*
-           Dejamos que TE AMO
-           aparezca primero.
-        */
-
         setTimeout(() => {
 
-            disintegrateLoveText();
+            disintegrateLove();
 
-        },2800);
+        },3000);
 
     },1000);
 }
 
 
 /* =========================================================
-   DESINTEGRAR "TE AMO"
+   DESINTEGRAR TE AMO
 ========================================================= */
 
-function disintegrateLoveText(){
+function disintegrateLove(){
 
     const rect =
         loveText.getBoundingClientRect();
 
 
-    /*
-       Canvas vuelve a aparecer
-       detrás de las partículas.
-    */
-
+    canvas.style.zIndex="60";
     canvas.style.opacity="1";
-
-    canvas.style.zIndex="40";
-
-
-    /*
-       Capturamos aproximadamente
-       los puntos de la frase.
-    */
-
-    const particleCount =
-        isMobile
-        ? 500
-        : 1000;
 
 
     const particles=[];
 
 
-    /*
-       Creamos partículas distribuidas
-       sobre el área de TE AMO.
-    */
+    const amount =
+        isMobile
+        ? 600
+        : 1100;
+
 
     for(
         let i=0;
-        i<particleCount;
+        i<amount;
         i++
     ){
 
-        const x =
-            rect.left+
-            Math.random()
-            *rect.width;
-
-
-        const y =
-            rect.top+
-            Math.random()
-            *rect.height;
-
-
         particles.push({
 
-            x:x,
+            x:
+                rect.left+
+                Math.random()*rect.width,
 
-            y:y,
+            y:
+                rect.top+
+                Math.random()*rect.height,
 
             vx:
-                (Math.random()-.5)
-                *5,
+                (Math.random()-.5)*5,
 
             vy:
-                (Math.random()-.5)
-                *5,
+                (Math.random()-.5)*5,
 
             life:1,
 
             size:
-                Math.random()*2.5+1,
+                Math.random()*2.8+1,
 
             color:
-                Math.random()>.7
+                Math.random()>.72
                 ? "#ff4f91"
                 : "#ffffff"
 
@@ -2056,44 +1878,18 @@ function disintegrateLoveText(){
     }
 
 
-    /*
-       Ocultamos la frase
-       después de iniciar las partículas.
-    */
-
-    loveText.style.transition=
-        "opacity .35s ease";
-
     loveText.style.opacity="0";
 
 
-    /*
-       Animación de desintegración
-    */
-
-    let startTime=
+    let start =
         performance.now();
 
 
-    function animateDisintegration(
-        now
-    ){
+    function animate(now){
 
         const elapsed =
-            now-startTime;
+            now-start;
 
-
-        ctx.clearRect(
-            0,
-            0,
-            width,
-            height
-        );
-
-
-        /*
-           Fondo negro
-        */
 
         ctx.fillStyle="#000";
 
@@ -2105,69 +1901,59 @@ function disintegrateLoveText(){
         );
 
 
-        particles.forEach(
-            p => {
+        particles.forEach(p => {
 
-                p.x+=p.vx;
-                p.y+=p.vy;
+            p.x+=p.vx;
+            p.y+=p.vy;
 
-                p.vx*=.995;
-                p.vy*=.995;
+            p.vx*=.996;
+            p.vy*=.996;
 
-                p.vy+=.015;
+            p.vy+=.018;
 
+            p.life-=.0035;
 
-                p.life-=.003;
-
-
-                if(p.life<0)
-                    p.life=0;
-
-
-                ctx.beginPath();
-
-                ctx.globalAlpha=
-                    p.life;
-
-                ctx.fillStyle=
-                    p.color;
-
-
-                ctx.shadowBlur=15;
-
-                ctx.shadowColor=
-                    p.color;
-
-
-                ctx.arc(
-                    p.x,
-                    p.y,
-                    p.size,
-                    0,
-                    Math.PI*2
+            ctx.globalAlpha=
+                Math.max(
+                    p.life,
+                    0
                 );
 
+            ctx.fillStyle=
+                p.color;
 
-                ctx.fill();
+            ctx.shadowBlur=12;
+            ctx.shadowColor=
+                p.color;
 
-            }
-        );
+            ctx.beginPath();
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+
+        });
 
 
         ctx.globalAlpha=1;
+        ctx.shadowBlur=0;
 
 
-        if(elapsed<2200){
+        if(elapsed<2400){
 
             requestAnimationFrame(
-                animateDisintegration
+                animate
             );
 
         }else{
 
-            startGalaxy(
-                particles
-            );
+            createGalaxy();
 
         }
 
@@ -2175,7 +1961,7 @@ function disintegrateLoveText(){
 
 
     requestAnimationFrame(
-        animateDisintegration
+        animate
     );
 }
 
@@ -2184,41 +1970,28 @@ function disintegrateLoveText(){
    GALAXIA
 ========================================================= */
 
-function startGalaxy(
-    oldParticles
-){
+function createGalaxy(){
 
     galaxyMode=true;
-
-
-    /*
-       Convertimos las partículas
-       existentes en una galaxia.
-    */
-
-    const galaxyCount =
-        isMobile
-        ? 700
-        : 1400;
-
 
     stars=[];
 
 
+    const amount =
+        isMobile
+        ? 750
+        : 1500;
+
+
     for(
         let i=0;
-        i<galaxyCount;
+        i<amount;
         i++
     ){
 
         const angle =
-            Math.random()
-            *Math.PI*2;
+            Math.random()*Math.PI*2;
 
-
-        /*
-           Distribución espiral
-        */
 
         const radius =
             Math.pow(
@@ -2230,14 +2003,7 @@ function startGalaxy(
                 width,
                 height
             )
-            *.62;
-
-
-        const arm =
-            Math.sin(
-                radius*.025
-            )
-            *1.2;
+            *.65;
 
 
         stars.push({
@@ -2245,44 +2011,38 @@ function startGalaxy(
             galaxy:true,
 
             angle:
+
                 angle+
-                arm,
+                Math.sin(radius*.025)*1.2,
 
             radius:radius,
 
             z:
-                (Math.random()-.5)
-                *300,
+                (Math.random()-.5)*300,
 
             size:
-                Math.random()*2.5+
-                .5,
+                Math.random()*2.5+.5,
 
             speed:
-                .0003+
-                Math.random()*.001,
+                .0004+
+                Math.random()*.0012,
 
             color:
-                galaxyColor(
-                    radius
-                ),
+                galaxyColor(radius),
 
             twinkle:
-                Math.random()
-                *Math.PI*2
+                Math.random()*Math.PI*2
 
         });
 
     }
 
 
-    /*
-       Núcleo brillante
-    */
+    /* Núcleo */
 
     for(
         let i=0;
-        i<180;
+        i<220;
         i++
     ){
 
@@ -2291,65 +2051,56 @@ function startGalaxy(
             galaxy:true,
 
             angle:
-                Math.random()
-                *Math.PI*2,
+                Math.random()*Math.PI*2,
 
             radius:
                 Math.random()
-                *Math.min(width,height)
+                *
+                Math.min(width,height)
                 *.16,
 
             z:
-                (Math.random()-.5)
-                *100,
+                (Math.random()-.5)*100,
 
             size:
-                Math.random()*4+
-                1,
+                Math.random()*4+1,
 
             speed:
                 .0008+
-                Math.random()*.001,
+                Math.random()*.0015,
 
-            color:
-                "#ffffff",
+            color:"#ffffff",
 
             twinkle:
-                Math.random()
-                *Math.PI*2
+                Math.random()*Math.PI*2
 
         });
 
     }
 
 
-    animateGalaxyCamera();
-
+    animateGalaxy();
 }
 
 
 /* =========================================================
-   COLORES GALAXIA
+   COLOR GALAXIA
 ========================================================= */
 
-function galaxyColor(
-    radius
-){
+function galaxyColor(){
 
-    const r =
-        Math.random();
+    const r=Math.random();
 
-
-    if(r<.15)
+    if(r<.18)
         return "#ffffff";
 
-    if(r<.35)
+    if(r<.38)
         return "#8de8ff";
 
-    if(r<.55)
+    if(r<.58)
         return "#4db8ff";
 
-    if(r<.75)
+    if(r<.78)
         return "#d9a7ff";
 
     return "#ff80c8";
@@ -2357,7 +2108,7 @@ function galaxyColor(
 
 
 /* =========================================================
-   PARTÍCULAS DE GALAXIA
+   DIBUJAR GALAXIA
 ========================================================= */
 
 function drawGalaxyParticle(
@@ -2365,74 +2116,61 @@ function drawGalaxyParticle(
     time
 ){
 
-    star.angle +=
-        star.speed;
+    star.angle+=star.speed;
 
-
-    /*
-       Perspectiva 3D
-    */
 
     const perspective =
         1+
-        star.z/
-        700;
+        star.z/700;
 
 
     const x =
-        Math.cos(
-            star.angle
-        )
-        *star.radius
-        *perspective;
+        Math.cos(star.angle)
+        *
+        star.radius
+        *
+        perspective;
 
 
     const y =
-        Math.sin(
-            star.angle
-        )
-        *star.radius
-        *.42
-        *perspective;
+        Math.sin(star.angle)
+        *
+        star.radius
+        *
+        .42
+        *
+        perspective;
 
-
-    /*
-       Rotación suave
-    */
 
     const rotation =
-        Math.sin(
-            time*.08
-        )*.25;
+        Math.sin(time*.08)*.25;
 
 
-    const rotatedX =
+    const rx =
         x*Math.cos(rotation)
         -
         y*Math.sin(rotation);
 
 
-    const rotatedY =
+    const ry =
         x*Math.sin(rotation)
         +
         y*Math.cos(rotation);
 
 
     const px =
-        width/2+
-        rotatedX;
+        width/2+rx;
 
 
     const py =
-        height/2+
-        rotatedY;
+        height/2+ry;
 
 
     if(
-        px<-20 ||
-        px>width+20 ||
-        py<-20 ||
-        py>height+20
+        px<-30 ||
+        px>width+30 ||
+        py<-30 ||
+        py>height+30
     )
         return;
 
@@ -2448,10 +2186,6 @@ function drawGalaxyParticle(
         .35+
         twinkle*.65;
 
-
-    /*
-       Brillo
-    */
 
     if(star.size>1.5){
 
@@ -2483,11 +2217,9 @@ function drawGalaxyParticle(
 
 
         ctx.globalAlpha=
-            alpha*.55;
+            alpha*.5;
 
-        ctx.fillStyle=
-            glow;
-
+        ctx.fillStyle=glow;
 
         ctx.beginPath();
 
@@ -2504,11 +2236,9 @@ function drawGalaxyParticle(
     }
 
 
-    ctx.globalAlpha=
-        alpha;
+    ctx.globalAlpha=alpha;
 
-    ctx.fillStyle=
-        star.color;
+    ctx.fillStyle=star.color;
 
     ctx.shadowBlur=
         star.size*3;
@@ -2531,9 +2261,7 @@ function drawGalaxyParticle(
 
 
     ctx.shadowBlur=0;
-
     ctx.globalAlpha=1;
-
 }
 
 
@@ -2541,14 +2269,14 @@ function drawGalaxyParticle(
    ANIMACIÓN GALAXIA
 ========================================================= */
 
-function animateGalaxyCamera(){
+function animateGalaxy(){
 
     if(!galaxyMode)
         return;
 
 
     requestAnimationFrame(
-        animateGalaxyCamera
+        animateGalaxy
     );
 
 
@@ -2562,10 +2290,6 @@ function animateGalaxyCamera(){
     );
 
 
-    /*
-       Halo de la galaxia
-    */
-
     const halo =
         ctx.createRadialGradient(
             width/2,
@@ -2573,13 +2297,13 @@ function animateGalaxyCamera(){
             0,
             width/2,
             height/2,
-            Math.min(width,height)*.7
+            Math.min(width,height)*.75
         );
 
 
     halo.addColorStop(
         0,
-        "rgba(150,90,255,.18)"
+        "rgba(160,80,255,.18)"
     );
 
     halo.addColorStop(
@@ -2608,10 +2332,6 @@ function animateGalaxyCamera(){
     );
 
 
-    /*
-       Centro de la galaxia
-    */
-
     const core =
         ctx.createRadialGradient(
             width/2,
@@ -2625,7 +2345,7 @@ function animateGalaxyCamera(){
 
     core.addColorStop(
         0,
-        "rgba(255,255,255,.9)"
+        "rgba(255,255,255,.95)"
     );
 
     core.addColorStop(
@@ -2658,62 +2378,15 @@ function animateGalaxyCamera(){
         Date.now()*.001;
 
 
-    stars.forEach(
-        star => {
+    stars.forEach(star => {
 
-            drawGalaxyParticle(
-                star,
-                time
-            );
+        drawGalaxyParticle(
+            star,
+            time
+        );
 
-        }
-    );
-
+    });
 }
-
-
-/* =========================================================
-   CLICK EXTRA PARA FINAL
-========================================================= */
-
-loveFinal.addEventListener(
-    "click",
-    () => {
-
-        if(!finalStarted)
-            return;
-
-        if(!galaxyMode){
-
-            disintegrateLoveText();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   EVITAR SCROLL DEL BODY
-========================================================= */
-
-document.body.addEventListener(
-    "touchmove",
-    function(e){
-
-        if(
-            !letterScreen.contains(
-                e.target
-            )
-        ){
-
-            e.preventDefault();
-
-        }
-
-    },
-    {passive:false}
-);
 
 </script>
 
