@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Cumpleaños, Mi Amor!</title>
+    <title>¡Feliz Cumpleaños, MI AMOOOR! 🎁🌌</title>
+    <!-- Librerías de Confeti y Three.js -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
@@ -11,7 +12,7 @@
         body {
             background-color: #000000;
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif; /* Fuente más moderna y alegre */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,260 +22,337 @@
             position: relative;
         }
 
-        /* Canvas 3D para la Galaxia Blanca */
-        #galaxyCanvas {
+        /* Canvas para el Viaje Estelar 3D en el Fondo */
+        #starfieldCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: 1;
+        }
+
+        /* Canvas para la Galaxia Táctil */
+        #galaxyCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
             opacity: 0;
-            transition: opacity 2s ease;
+            cursor: pointer;
+            transition: opacity 1.5s ease;
         }
 
         .container {
             position: relative;
             z-index: 10;
             padding: 20px;
-            max-width: 650px;
+            max-width: 700px;
             width: 90%;
         }
 
-        /* Paso 1: Regalo */
-        .gift-box {
-            font-size: 90px;
+        /* Fase 1: Regalo GIGANTE */
+        #giftSection {
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .huge-gift-text {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255,255,255,1), 0 0 25px rgba(255,105,180,1);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .huge-gift-icon {
+            font-size: 200px; /* ¡GIGANTE! */
             cursor: pointer;
-            animation: dropDown 1.2s ease-out forwards, bounce 2s infinite 1.2s;
+            animation: floatGift 3s ease-in-out infinite, glowGift 2s alternate infinite;
             display: inline-block;
             user-select: none;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
         }
 
-        @keyframes dropDown {
-            0% { transform: translateY(-500px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+        @keyframes floatGift {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-
-        .instructions {
-            margin-top: 15px;
-            font-size: 1.2em;
-            color: #ffffff;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        @keyframes glowGift {
+            from { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7)); }
+            to { filter: drop-shadow(0 0 45px rgba(255, 105, 180, 1)); }
         }
 
         /* Tarjetas Glassmorphism */
         .card {
             display: none;
-            background: rgba(10, 10, 15, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 24px;
-            padding: 35px 25px;
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
-            animation: popIn 0.8s ease-out forwards;
+            background: rgba(10, 10, 25, 0.7);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 30px;
+            padding: 45px 30px;
+            box-shadow: 0 0 50px rgba(0, 191, 255, 0.3);
+            animation: popIn 0.9s ease-out forwards;
+            position: relative;
         }
 
         @keyframes popIn {
-            0% { transform: scale(0.6); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0.7) translateY(50px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .big-heart {
-            font-size: 90px;
+            font-size: 110px;
             cursor: pointer;
             display: inline-block;
-            animation: pulse 1.2s infinite;
-            filter: drop-shadow(0 0 25px #ffffff);
+            animation: pulse 1.3s infinite, glowHeart 2s alternate infinite;
             user-select: none;
-            transition: transform 0.2s;
+            transition: transform 0.3s;
         }
 
-        .big-heart:hover { transform: scale(1.3); }
+        @keyframes glowHeart {
+            from { filter: drop-shadow(0 0 20px #ff4d6d); }
+            to { filter: drop-shadow(0 0 40px #ff1f4b); }
+        }
+
+        .big-heart:hover { transform: scale(1.25); }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.18); }
+            50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
 
         h1 {
             color: #ffffff;
-            font-size: 2.3em;
-            margin: 15px 0;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            font-size: 2.8em;
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+            font-weight: 800;
         }
 
         p {
-            font-size: 1.1em;
-            line-height: 1.7;
-            color: #f0f0f0;
-            margin-bottom: 15px;
-            font-weight: 300;
-            text-shadow: 0 0 5px rgba(0,0,0,0.8);
-        }
-
-        .btn-galaxy {
-            margin-top: 20px;
-            padding: 12px 28px;
-            font-size: 1.1em;
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            border: 1px solid #fff;
-            border-radius: 30px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-            transition: all 0.3s;
-        }
-
-        .btn-galaxy:hover {
-            background: #ffffff;
-            color: #000;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #f5f5f5;
+            margin-bottom: 18px;
+            font-weight: 400;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
         .galaxy-quote {
             font-style: italic;
-            color: #ffffff;
-            font-size: 1.15em;
-            margin-top: 20px;
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 15px;
+            color: #8be9fd;
+            font-size: 1.25em;
+            margin-top: 25px;
+            text-shadow: 0 0 15px rgba(139, 233, 253, 0.8);
+            border-top: 2px solid rgba(255,255,255,0.2);
+            padding-top: 20px;
         }
 
-        /* Lluvia de corazones */
-        .falling-heart {
+        /* Efecto de Corazones Flotantes */
+        .floating-heart-static {
             position: absolute;
-            top: -20px;
-            color: #ffffff;
-            font-size: 24px;
-            user-select: none;
-            pointer-events: none;
-            z-index: 20;
-            animation: fall linear forwards;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 30px;
+            animation: floatStatic 6s ease-in-out infinite;
+            opacity: 0.6;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
         }
 
-        @keyframes fall {
-            to { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        @keyframes floatStatic {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, -30px) rotate(15deg); }
         }
     </style>
+    <!-- Fuente Moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <!-- Canvas de Fondo (Viaje Estelar) -->
+    <canvas id="starfieldCanvas"></canvas>
+    <!-- Canvas de Galaxia Táctil -->
     <canvas id="galaxyCanvas"></canvas>
 
     <div class="container">
+        <!-- Paso 1: Regalo GIGANTE inicial -->
         <div id="giftSection">
-            <div class="gift-box" onclick="openGift()">🎁</div>
-            <div class="instructions">¡Toca el regalo para comenzar! ✨</div>
+            <div class="huge-gift-text">¡MI AMOOOR! 💖</div>
+            <div class="huge-gift-icon" onclick="openGift()">🎁</div>
+            <div class="instructions">¡¡Toca el regalo para comenzar!! ✨🎉</div>
         </div>
 
+        <!-- Paso 2: Mensaje de Bienvenida con Corazón Grande -->
         <div class="card" id="welcomeSection">
-            <div class="big-heart" onclick="triggerHeartRain()">❤️</div>
-            <h1>¡Feliz Cumpleaños, Mi Amor!</h1>
-            <div class="instructions">Haz clic en el corazón para activar la sorpresa... 🤍</div>
-            <button class="btn-galaxy" id="galaxyBtn" style="display:none;" onclick="showLetter()">Ver nuestra Galaxia ✨</button>
+            <div class="big-heart" onclick="triggerHearts()">❤️</div>
+            <h1>¡Feliz Cumpleaños!</h1>
+            <div class="instructions">Toca el corazón y luego toca la Galaxia... 🌌🤍</div>
         </div>
 
+        <!-- Paso 3: Carta Oculta (Aparece al TOCAR la Galaxia) -->
         <div class="card" id="letterSection">
-            <div class="big-heart" style="font-size: 50px; filter: drop-shadow(0 0 15px #fff);">💖</div>
+            <div class="big-heart" style="font-size: 60px;">💖</div>
             <h1>Gracias por existir</h1>
             <p>
-                Hoy solo quiero darte las gracias por estar en este mundo y por iluminar mi vida. Me encantaría estar justo a tu lado celebrándote y dándote ese abrazo que tanto me hace falta, pero como hoy la distancia no nos lo permite, me alegra mucho poder expresarme mediante la programación, un lenguaje que sé que tú también entiendes y aprecias.
+                Hoy solo quiero darte las gracias por estar en este mundo y por iluminar mi vida [cite: image_15.png]. Me encantaría estar justo a tu lado celebrándote y dándote ese abrazo que tanto me hace falta, pero como hoy la distancia no nos lo permite, me alegra mucho poder expresarme mediante la programación, un lenguaje que sé que tú también entiendes y aprecias.
             </p>
             <p>
                 Eres una persona increíble, inteligente y muy especial para mí. Te amo con todo mi corazón y deseo que este nuevo año esté lleno de momentos hermosos para ti.
             </p>
             <div class="galaxy-quote">
-                "En un universo infinito con billones de galaxias y millones de estrellas, mi coincidencia favorita siempre serás tú." 🌌✨
+                "En un universo infinito con billones de galaxias y millones de estrellas, mi coincidencia favorita siempre serás tú." 🌌🤍✨
             </div>
         </div>
     </div>
 
     <script>
+        let starfieldScene, starfieldCamera, starfieldRenderer, starfieldPoints;
+        let galaxyScene, galaxyCamera, galaxyRenderer, galaxyPoints;
+        let heartsStatic = [];
+
+        // Iniciar el Viaje Estelar de Fondo
+        initStarfield();
+
         // Paso 1: Abrir Regalo
         function openGift() {
             document.getElementById('giftSection').style.display = 'none';
             document.getElementById('welcomeSection').style.display = 'block';
 
-            // Confeti blanco y plateado deslumbrante
-            confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 }, colors: ['#ffffff', '#e0e0e0', '#aaaaaa'] });
+            // Confeti multicolor deslumbrante
+            confetti({
+                particleCount: 200,
+                spread: 120,
+                origin: { y: 0.6 },
+                colors: ['#ffffff', '#ff007f', '#00bfff', '#ffff00', '#8a2be2']
+            });
         }
 
-        // Paso 2: Lluvia de Corazones al hacer clic en el corazón grande
-        function triggerHeartRain() {
-            for (let i = 0; i < 45; i++) {
-                setTimeout(createHeart, i * 100);
+        // Paso 2: Lluvia y Corazones Flotantes Estáticos
+        function triggerHearts() {
+            // Lluvia de corazones (temporal)
+            for (let i = 0; i < 40; i++) {
+                setTimeout(createFallingHeart, i * 110);
             }
-            document.getElementById('galaxyBtn').style.display = 'inline-block';
+
+            // Crear corazones flotantes estáticos en la pantalla
+            createStaticHearts();
+
+            // Activar la Galaxia Táctil
+            const canvasGalaxy = document.getElementById('galaxyCanvas');
+            canvasGalaxy.style.opacity = '1';
+            canvasGalaxy.addEventListener('click', showLetter); // <--- Táctil
+            init3DGalaxy();
         }
 
-        function createHeart() {
+        function createFallingHeart() {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
             heart.innerHTML = ['🤍', '✨', '💖', '⭐'][Math.floor(Math.random() * 4)];
+            heart.style.position = 'absolute';
+            heart.style.top = '-20px';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-            heart.style.fontSize = Math.random() * 15 + 20 + 'px';
+            heart.style.animation = `fall ${Math.random() * 2 + 3}s linear forwards`;
+            heart.style.zIndex = '15';
             document.body.appendChild(heart);
-
             setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        function createStaticHearts() {
+            const container = document.body;
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart-static');
+                heart.innerHTML = ['💖', '🤍', '💕'][Math.floor(Math.random() * 3)];
+                heart.style.left = Math.random() * 90 + 5 + 'vw';
+                heart.style.top = Math.random() * 90 + 5 + 'vh';
+                heart.style.animationDelay = Math.random() * 3 + 's';
+                heart.style.zIndex = '5';
+                container.appendChild(heart);
+            }
         }
 
         // Paso 3: Mostrar Carta e Iniciar Galaxia 3D
         function showLetter() {
             document.getElementById('welcomeSection').style.display = 'none';
             document.getElementById('letterSection').style.display = 'block';
-
-            const canvas = document.getElementById('galaxyCanvas');
-            canvas.style.opacity = '1';
-
-            start3DGalaxy();
+            // Desactivar clics en la galaxia
+            document.getElementById('galaxyCanvas').removeEventListener('click', showLetter);
         }
 
-        // --- SISTEMA DE GALAXIA ESPIRAL 3D CON THREE.JS ---
-        function start3DGalaxy() {
+        // --- SISTEMA DE VIAJE ESTELAR 3D DE FONDO (Three.js) ---
+        function initStarfield() {
+            const canvas = document.getElementById('starfieldCanvas');
+            starfieldScene = new THREE.Scene();
+            starfieldCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            starfieldCamera.position.z = 50;
+
+            starfieldRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            starfieldRenderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Crear miles de estrellas
+            const starGeometry = new THREE.BufferGeometry();
+            const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.15, transparent: true });
+
+            const starVertices = [];
+            for (let i = 0; i < 15000; i++) {
+                starVertices.push(
+                    (Math.random() - 0.5) * 1000,
+                    (Math.random() - 0.5) * 1000,
+                    (Math.random() - 0.5) * 1000
+                );
+            }
+            starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+            starfieldPoints = new THREE.Points(starGeometry, starMaterial);
+            starfieldScene.add(starfieldPoints);
+
+            window.addEventListener('resize', onWindowResizeStarfield);
+            animateStarfield();
+        }
+
+        function onWindowResizeStarfield() {
+            starfieldCamera.aspect = window.innerWidth / window.innerHeight;
+            starfieldCamera.updateProjectionMatrix();
+            starfieldRenderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animateStarfield() {
+            starfieldPoints.rotation.y += 0.0005; // Rotación lenta
+            starfieldPoints.position.z += 0.5; // Efecto de viaje
+            if (starfieldPoints.position.z > 200) starfieldPoints.position.z = 0;
+
+            starfieldRenderer.render(starfieldScene, starfieldCamera);
+            requestAnimationFrame(animateStarfield);
+        }
+
+
+        // --- SISTEMA DE GALAXIA ESPIRAL DE COLORES 3D (Three.js) ---
+        function init3DGalaxy() {
             const canvas = document.getElementById('galaxyCanvas');
-            const scene = new THREE.Scene();
+            galaxyScene = new THREE.Scene();
+            galaxyCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            galaxyCamera.position.set(0, 30, 60);
+            galaxyCamera.lookAt(0, 0, 0);
 
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 30, 50);
-            camera.lookAt(0, 0, 0);
+            galaxyRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            galaxyRenderer.setSize(window.innerWidth, window.innerHeight);
+            galaxyRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-            // Parámetros de la Galaxia Espiral
-            const parameters = {
-                count: 40000,
-                size: 0.2,
-                radius: 45,
-                branches: 4,
-                spin: 1,
-                randomness: 0.5,
-                power: 3
-            };
-
+            // Parámetros de la Galaxia
+            const parameters = { count: 35000, size: 0.22, radius: 40, branches: 3, spin: 1.2, randomness: 0.5, power: 3 };
             const geometry = new THREE.BufferGeometry();
             const positions = new Float32Array(parameters.count * 3);
             const colors = new Float32Array(parameters.count * 3);
 
-            const colorCore = new THREE.Color('#ffffff'); // Núcleo Blanco Puro
-            const colorEdge = new THREE.Color('#d0d0e0'); // Bordes Blanco Brillante
+            // Colores: Blanco (núcleo) a Azul Eléctrico y Cian
+            const colorCore = new THREE.Color('#ffffff');
+            const colorMiddle = new THREE.Color('#00bfff'); // Cian
+            const colorEdge = new THREE.Color('#1e90ff'); // Azul Dodget
 
             for (let i = 0; i < parameters.count; i++) {
-                // Posición en la espiral
                 const i3 = i * 3;
                 const radius = Math.random() * parameters.radius;
                 const spinAngle = radius * parameters.spin;
@@ -285,12 +363,16 @@
                 const randomZ = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
 
                 positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
-                positions[i3 + 1] = randomY;
+                positions[i3 + 1] = randomY * 0.3; // Más plana
                 positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
 
-                // Color Gradiente Blanco
-                const mixedColor = colorCore.clone();
-                mixedColor.lerp(colorEdge, radius / parameters.radius);
+                // Gradiente de Color
+                let mixedColor;
+                if (radius < parameters.radius / 3) {
+                    mixedColor = colorCore.clone().lerp(colorMiddle, radius / (parameters.radius / 3));
+                } else {
+                    mixedColor = colorMiddle.clone().lerp(colorEdge, (radius - (parameters.radius/3)) / (2*parameters.radius/3));
+                }
 
                 colors[i3] = mixedColor.r;
                 colors[i3 + 1] = mixedColor.g;
@@ -300,7 +382,6 @@
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-            // Material de Puntos
             const material = new THREE.PointsMaterial({
                 size: parameters.size,
                 sizeAttenuation: true,
@@ -308,29 +389,28 @@
                 blending: THREE.AdditiveBlending,
                 vertexColors: true,
                 transparent: true,
-                opacity: 0.95
+                opacity: 0.9
             });
 
-            const points = new THREE.Points(geometry, material);
-            scene.add(points);
+            galaxyPoints = new THREE.Points(geometry, material);
+            galaxyScene.add(galaxyPoints);
 
-            // Redimensionar pantalla
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
+            window.addEventListener('resize', onWindowResizeGalaxy);
+            animateGalaxy();
+        }
 
-            // Animación de Rotación Espacial
-            const clock = new THREE.Clock();
-            function animate() {
-                const elapsedTime = clock.getElapsedTime();
-                points.rotation.y = elapsedTime * 0.12; // Velocidad de giro
-                renderer.render(scene, camera);
-                requestAnimationFrame(animate);
-            }
+        function onWindowResizeGalaxy() {
+            galaxyCamera.aspect = window.innerWidth / window.innerHeight;
+            galaxyCamera.updateProjectionMatrix();
+            galaxyRenderer.setSize(window.innerWidth, window.innerHeight);
+        }
 
-            animate();
+        const clock = new THREE.Clock();
+        function animateGalaxy() {
+            const elapsedTime = clock.getElapsedTime();
+            galaxyPoints.rotation.y = elapsedTime * 0.1; // Rotación
+            galaxyRenderer.render(galaxyScene, galaxyCamera);
+            requestAnimationFrame(animateGalaxy);
         }
     </script>
 </body>
